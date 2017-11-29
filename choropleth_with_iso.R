@@ -12,14 +12,14 @@ library(dplyr)
 library(viridis)
 
 # world <- ne_download(scale = 50, type = "countries")
-# world <- world[!world$ISO_A3 %in% c("ATA"),] remove antarctica
+world <- world[!world$ISO_A3 %in% c("ATA"),] # remove antarctica
 world <- spTransform(world, CRS("+proj=wintri"))
 map <- fortify(world, region="ISO_N3")
 head(map)
 
 # Tune up dataset
 raw_with_iso <- read.csv("/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO.csv", header = T)
-only_isocode_by_case <- select(raw_with_iso, country, isocountrycode)
+only_isocode_by_case <- dplyr::select(raw_with_iso, country, isocountrycode)
 head(only_isocode_by_case)
 
 cc_iso_by_case <- only_isocode_by_case[complete.cases(only_isocode_by_case),]

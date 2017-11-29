@@ -22,18 +22,8 @@ p
 chart_link = api_create(p, filename="surface")
 chart_link
 
-#####
-getwd()
-test_csv<-read.csv("surface_plot_test.csv")
-test_matrix <- as.matrix(test_csv)
-head(test_matrix)
-p <- plot_ly(z = ~test_matrix) %>% add_surface()
-p
-
-chart_link = api_create(p, filename="surface")
-chart_link
-
 ### Second test
+getwd()
 test_csv<-read.csv("surface_plot_test2.csv")
 test_matrix <- as.matrix(test_csv)
 head(test_matrix)
@@ -42,3 +32,4 @@ p
 
 chart_link = api_create(p, filename="surface2")
 chart_link
+

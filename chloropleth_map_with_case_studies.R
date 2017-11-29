@@ -30,7 +30,7 @@ world_map <- fortify(world_wt)
 
 world_map %>%
   left_join(data_frame(id=rownames(world@data), name=world@data$name)) %>%
-  select(-id) %>%
+  dplyr::select(-id) %>%
   rename(id=name) -> world_map
 unique((world_map$id))
 
@@ -38,7 +38,7 @@ unique((world_map$id))
 # Now work with my data
 head(raw_with_iso)
 raw_with_iso <- read.csv("/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO.csv", header = T)
-only_country_iso_and_code <- select(raw_with_iso, code, country, isocountrycode)
+only_country_iso_and_code <- dplyr::select(raw_with_iso, code, country, isocountrycode)
 head(only_country_iso_and_code)
 
 outage <- only_country_iso_and_code[complete.cases(only_country_iso_and_code),]
@@ -69,9 +69,11 @@ gg <- gg + geom_map(map=world_map, aes(x=long, y=lat),
 gg
 gg <- gg + geom_map(data=outage_df_countryname, map=world_map, aes(fill=count),
                     color="#0e0e0e", size=0.2)
+gg
 gg <- gg + coord_equal()
 # gg <- gg + labs(title=sprintf("Number of case studies by country",
 #                               comma(sum(outage$without_power))))
 gg <- gg + theme_map()
+gg
 gg <- gg + theme(legend.position="right")
 gg
