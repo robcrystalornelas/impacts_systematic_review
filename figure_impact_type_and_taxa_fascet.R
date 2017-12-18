@@ -23,3 +23,4 @@ ggplot(impact_and_taxa) +
   facet_wrap(~invasivespeciestaxa) +
   scale_fill_manual(values = colorRampPalette(solarized_pal()(8))(16)) +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
+
