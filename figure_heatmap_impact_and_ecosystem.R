@@ -1,5 +1,7 @@
-#### Heatmap comparisons on ecosystem and impact type
+## READ IN DATA ####
+source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_data_for_heatmap.R") # This tells R to run our entire cleaning script so that we have
 
+## LOAD PACKAGES ####
 library(ggplot2)
 library(dplyr)
 library(data.table)  # faster fread() and better weekdays()
@@ -15,57 +17,9 @@ library(ggthemes)    # has a clean theme for ggplot2
 library(viridis)     # best. color. palette. evar.
 library(knitr)   
 
-# Import CSV file of systematic review
-# Include argument na.strings = ""
-impacts_raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Pecchia_et_al_Impacts_Worksheet_v10.csv", header=TRUE, na.strings = "")
-head(impacts_raw_data)
+## MAKE FIGURE ####
 
-# Remove last row which contains all blank entries
-levels(impacts_raw_data$ecosystem)
-levels(impacts_raw_data$impacttype)
-dim(impacts_raw_data)
-impacts_raw_data<-impacts_raw_data[-1533,]
-dim(impacts_raw_data)
-
-# Convert data.frame to table
-impacts_t <- tbl_df(impacts_raw_data)
-head(impacts_t)
-kable(head(impacts_t))
-
-#############################
-## Impact vs. Ecosystem SUBSET
-##############################
-
-# Select only rows with top five impacts
-levels(impacts_raw_data$impacttype)
-
-# Select top impacts
-top_impacts <- subset(impacts_raw_data, impacttype %in% c("diversity","fitness","nutrient availability", "habitat change","fitness","abundance","behavior"))
-dim(top_impacts)
-
-levels(impacts_raw_data$ecosystem)
-# Select top ecosystems
-top_impacts_and_ecosystem <-subset(top_impacts, ecosystem %in% c("forest","lotic", "lentic", "estuarine","island","grassland") )
-dim(top_impacts_and_ecosystem)
-
-# Drop unused levels from data.frame
-top_impacts_and_ecosystem[] <- lapply(top_impacts_and_ecosystem, function(x) if(is.factor(x)) factor(x) else x)
-
-# Re-order impact type
-top_impacts_and_ecosystem$impacttype <- factor(top_impacts_and_ecosystem$impacttype, levels=c("behavior","fitness","abundance","diversity", "nutrient availability","habitat change"))
-
-# Re-order ecosystem
-top_impacts_and_ecosystem$ecosystem <- factor(top_impacts_and_ecosystem$ecosystem, levels=c("forest", "lotic", "lentic","estuarine","island","grassland"))
-
-# Run table function
-top_impacts_and_ecosystem_t <- tbl_df(top_impacts_and_ecosystem)
-
-# Run count function
-top_impacts_and_ecosystem_count <- count(top_impacts_and_ecosystem_t, impacttype, ecosystem) # count function has to come BEFORE complete
-
-# Run complete function
-top_impacts_and_ecosystem_complete <- complete(top_impacts_and_ecosystem_count, impacttype, ecosystem, fill=list(n=NA))
-
+# The full version
 gg <- ggplot(top_impacts_and_ecosystem_complete, aes(x=impacttype, y=ecosystem, fill=n))
 gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
 gg <- gg + scale_fill_viridis(option = "C", name="# of cases", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes

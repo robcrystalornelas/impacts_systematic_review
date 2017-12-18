@@ -40,12 +40,18 @@ outage_df$out <- cut(outage_df$count,
                               "361-450", "451-540", "541-630",
                               "631-812"))
 
+outage_df$out_small_breaks <- cut(outage_df$count,
+                     breaks=c(0, 20, 40, 60, 80, 100, 120, 140, 820),
+                     labels=c("0-20", "21-40", "41-60", "61-80",
+                              "81-100", "101-120", "121-140",
+                              "121+"))
+
 gg <- ggplot()
 gg <- ggplot(data=map, aes(map_id=id))
 gg <- gg + geom_map(map=map,
                     aes(x=long, y=lat), color="#0e0e0e", fill="white", size = 0.05)
 gg
-gg <- gg + geom_map(data=outage_df, map=map, aes(fill=out), colour="#0e0e0e", size=0.05)
+gg <- gg + geom_map(data=outage_df, map=map, aes(fill=out_small_breaks), colour="#0e0e0e", size=0.05)
 gg
 
 gg <- gg + scale_fill_brewer(type="seq", palette="RdPu",
