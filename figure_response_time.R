@@ -35,7 +35,7 @@ gg
 gg <- gg + theme_tufte()
 gg
 gg <- gg + ylab("Frequency")
-gg <- gg + xlab("Response Time (Year species detected - year study begins)")
+gg <- gg + xlab("Response Time (year species detected - year study begins)")
 gg <- gg + ggtitle("Response time for invasive species research")
 gg
 
@@ -43,4 +43,6 @@ pdf(file="~/Desktop/Impacts Systematic Review/figures/responsetime_barplot.pdf")
 gg
 dev.off()
 dev.off()
+
+
 
