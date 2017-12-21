@@ -32,7 +32,12 @@ gg <- gg + theme_tufte()
 gg <- gg + theme(axis.text.x = element_text(angle = 60, hjust = 1))
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Study Length")
-gg <- gg + ggtitle("Study Length by Impact Measured")
+gg <- gg + guides(fill=FALSE)
+gg <- gg + theme(strip.text = element_text(size=12)) # make title of each fascet larger
+gg
+gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
+                 axis.title=element_text(size=14,face="bold"))
+
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/studylength_barplot_by_impacttype.pdf")

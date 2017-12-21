@@ -24,13 +24,14 @@ head(temporal_raw)
 
 # Overall Study Length
 gg <- ggplot(data=temporal_raw, aes(x=studylegnthbinned))
-gg <- gg + geom_bar(stat="count", fill = "#7fc97f")
+gg <- gg + geom_bar(stat="count", fill = "#fec44f")
 gg
 gg <- gg + theme_tufte()
 gg
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Study Length")
-gg <- gg + ggtitle("Overall Study Length")
+gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
+                 axis.title=element_text(size=14,face="bold"))
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/studylength_barplot.pdf")
