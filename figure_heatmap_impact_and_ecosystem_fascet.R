@@ -3,7 +3,6 @@ source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/cl
 # all of the correct variables in our environment
 
 ## LOAD PACKAGES ####
-
 library(ggplot2)
 library(dplyr)
 library(data.table)  # faster fread() and better weekdays()
@@ -36,21 +35,22 @@ gg <- gg + facet_wrap(~yearbinned, ncol=2)
 gg <- gg + labs(x = NULL, y = NULL, title="Impact Type & Ecosystem") # This is the title of the plot
 gg <- gg + theme_tufte(base_family="Helvetica")
 gg <- gg + theme(axis.ticks=element_blank())
-gg <- gg + theme(axis.text=element_text(size=5))
+gg <- gg + theme(axis.text.x=element_text(size=12, angle = 45, hjust = 1))
+gg <- gg + theme(axis.text.y=element_text(size=12))
+gg
+
 gg <- gg + theme(panel.border=element_blank())
 gg <- gg + theme(plot.title=element_text(hjust=0))
 gg <- gg + theme(strip.text=element_text(hjust=0))
+gg
+
 gg <- gg + theme(panel.spacing.x = unit(0.5, "cm"))
 gg <- gg + theme(panel.spacing.y = unit(0.5, "cm"))
-gg <- gg + theme(legend.title=element_text(size=6))
+gg <- gg + theme(legend.title=element_text(size=12))
 gg <- gg + theme(legend.title.align=1)
-gg <- gg + theme(legend.text=element_text(size=6))
+gg <- gg + theme(legend.text=element_text(size=12))
 gg <- gg + theme(legend.position="bottom")
+gg
 gg <- gg + theme(legend.key.size=unit(0.2, "cm"))
 gg <- gg + theme(legend.key.width=unit(1, "cm"))
 gg
-
-pdf(file="~/Desktop/Impacts Systematic Review/figures/impact_and_ecosystem_fascet_by_year.pdf")
-plot(gg)
-dev.off()
-dev.off()
