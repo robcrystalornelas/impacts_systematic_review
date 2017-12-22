@@ -1,4 +1,7 @@
-### Trying with ISO
+## READ IN DATA ####
+raw_with_iso <- read.csv("/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO.csv", header = T)
+
+## LOAD PACKAGES ####
 library(maptools)
 library(mapproj)
 library(rgeos)
@@ -11,6 +14,7 @@ library(rnaturalearth)
 library(dplyr)
 library(viridis)
 
+## ORGANIZE DATA ####
 # world <- ne_download(scale = 50, type = "countries")
 world <- world[!world$ISO_A3 %in% c("ATA"),] # remove antarctica
 world <- spTransform(world, CRS("+proj=wintri"))
@@ -18,7 +22,6 @@ map <- fortify(world, region="ISO_N3")
 head(map)
 
 # Tune up dataset
-raw_with_iso <- read.csv("/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO.csv", header = T)
 only_isocode_by_case <- dplyr::select(raw_with_iso, country, isocountrycode)
 head(only_isocode_by_case)
 
@@ -41,27 +44,33 @@ outage_df$out <- cut(outage_df$count,
                               "631-812"))
 
 outage_df$out_small_breaks <- cut(outage_df$count,
-                     breaks=c(0, 20, 40, 60, 80, 100, 120, 140, 820),
-                     labels=c("0-20", "21-40", "41-60", "61-80",
-                              "81-100", "101-120", "121-140",
-                              "121+"))
+                                  breaks=c(0, 20, 40, 60, 80, 100, 120, 140, 820),
+                                  labels=c("1-20", "21-40", "41-60", "61-80",
+                                           "81-100", "101-120", "121-140",
+                                           "121+"))
 
+
+## MAKE FIGURES ####
 gg <- ggplot()
 gg <- ggplot(data=map, aes(map_id=id))
 gg <- gg + geom_map(map=map,
-                    aes(x=long, y=lat), color="#0e0e0e", fill="white", size = 0.05)
+                    aes(x=long, y=lat), color="#0e0e0e", fill="#ffffff", size = 0.05)
+gg <- gg + geom_map(data=outage_df, map=map, aes(fill=out_small_breaks), 
+                    colour="#0e0e0e", size=0.05)
+gg # add in our data with random color scheme
+gg <- gg + scale_fill_viridis(option = "viridis", discrete = TRUE, name="Number of\ncase studies\nper country")
+# gg <- gg + scale_fill_brewer(type="seq", palette="RdPu",
+#                   name="Number of\ncase studies\nper country") # Better color theme
+gg <- gg + coord_equal(ratio=1) # flatten out map
 gg
-gg <- gg + geom_map(data=outage_df, map=map, aes(fill=out_small_breaks), colour="#0e0e0e", size=0.05)
+gg <- gg + ggthemes::theme_map() # more sparse theme
+gg <- gg + theme(legend.key = element_blank()) # move legend
 gg
-
-gg <- gg + scale_fill_brewer(type="seq", palette="RdPu",
-                  name="Number of\ncase studies\nper country")
-gg <- gg + labs(title="case studies by country")
-gg <- gg + coord_equal(ratio=1)
-gg
-
-gg <- gg + ggthemes::theme_map()
-gg <- gg + theme(legend.key = element_blank())
 gg <- gg + theme(plot.title=element_text(size=16))
 gg <- gg + theme(legend.position="right")
 gg
+
+pdf(file="~/Desktop/Impacts Systematic Review/figures/map_of_case_studies.pdf")
+gg
+dev.off()
+dev.off()

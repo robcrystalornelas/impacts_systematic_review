@@ -4,8 +4,10 @@ source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/cl
 ## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
+library(ggthemes)
 library(RColorBrewer)
 library(ggpubr)
+
 ## ORGANIZE DATA ####
 
 # Count of top 10 species
@@ -22,7 +24,12 @@ top_ten_species$invasivespecies <- factor(top_ten_species$invasivespecies, level
 gg<- ggplot(data=top_ten_species, aes(x=invasivespecies, y=count))
 gg <- gg + geom_bar(stat="identity", fill = "#FF6666")
 gg
-gg <- gg + theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 12))
+gg <- gg + theme_tufte()
+gg <- gg + ylab("Frequency")
+gg <- gg + xlab("Invasive Species")
+gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
+                 axis.title=element_text(size=14,face="bold"))
+gg <- gg + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_top_ten_species.pdf")
@@ -31,7 +38,6 @@ dev.off()
 dev.off()
 
 # Now created same figure, but fasceted in 5 year increments
-
 ## ORGANIZE DATA ####
 species_counted_fascet <- as.data.frame(count(raw_data, invasivespecies,yearbinned))
 head(species_counted_fascet)
@@ -70,9 +76,14 @@ head(species_counted_third_six_top_ten)
 gg_first <- ggplot(data=species_counted_first_six_top_ten, aes(x=invasivespecies, y=count))
 gg_first <- gg_first + geom_bar(stat="identity", fill = "#fc8d62")
 gg_first
-gg_first <- gg_first + theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 12))
 gg_first <- gg_first + ggtitle("1999-2004")
 gg_first <- gg_first + ylim(0,30)
+gg_first <- gg_first + theme_tufte()
+gg_first <- gg_first + ylab("Frequency")
+gg_first <- gg_first + xlab("Invasive Species")
+gg_first <- gg_first + theme(axis.text=element_text(size=12), # Change tick mark label size
+                 axis.title=element_text(size=14,face="bold"))
+gg_first <- gg_first + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 gg_first
 
 gg_second <- ggplot(data=species_counted_second_six_top_ten, aes(x=invasivespecies, y=count))
@@ -81,7 +92,14 @@ gg_second
 gg_second <- gg_second + theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 12))
 gg_second <- gg_second + ggtitle("2005-2010")
 gg_second <- gg_second + ylim(0,30)
+gg_second <- gg_second + theme_tufte()
+gg_second <- gg_second + ylab("Frequency")
+gg_second <- gg_second + xlab("Invasive Species")
+gg_second <- gg_second + theme(axis.text=element_text(size=12), # Change tick mark label size
+                             axis.title=element_text(size=14,face="bold"))
+gg_second <- gg_second + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 gg_second
+
 
 gg_third <- ggplot(data=species_counted_third_six_top_ten, aes(x=invasivespecies, y=count))
 gg_third <- gg_third + geom_bar(stat="identity", fill = "#8da0cb")
@@ -89,6 +107,12 @@ gg_third
 gg_third <- gg_third + theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 12))
 gg_third <- gg_third + ggtitle("2011-2016")
 gg_third <- gg_third + ylim(0,30)
+gg_third <- gg_third + theme_tufte()
+gg_third <- gg_third + ylab("Frequency")
+gg_third <- gg_third + xlab("Invasive Species")
+gg_third <- gg_third + theme(axis.text=element_text(size=12), # Change tick mark label size
+                               axis.title=element_text(size=14,face="bold"))
+gg_third <- gg_third + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
 gg_third
 
 # Arrange on one page
@@ -97,3 +121,6 @@ pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_top_ten_species_y
 ggarrange(gg_first,gg_second,gg_third)
 dev.off()
 dev.off()
+
+?ggarrange
+

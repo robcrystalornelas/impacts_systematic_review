@@ -33,7 +33,8 @@ gg <- gg + guides(fill=FALSE) # remove legent
 gg
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.title=element_text(size=14,face="bold"),
-                 axis.text.x = element_text(angle = 45, hjust = 1)) # Change axis title size
+                 axis.text.x = element_text(angle = 45, hjust = 1),
+                 strip.text = element_text(size=12)) # Change axis title size
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/impact_type_fascet_by_taxa.pdf")

@@ -7,7 +7,7 @@ library(ggplot2)
 
 ## ORGANIZE DATA ####
 head(raw_data)
-impacts_model_species_and_bio <- select(raw_data, invasivespecies, impacttype, impact_category_lockwood)
+impacts_model_species_and_bio <- dplyr::select(raw_data, invasivespecies, impacttype, impact_category_lockwood)
 head(impacts_model_species_and_bio)
 
 # Count of top 10 species
@@ -27,7 +27,7 @@ subset_of_top_ten
 
 ## MAKE FIGURES ####
 # Make stacked barplot
-gg <- ggplot(data=subset_of_top_ten, aes(x=invasivespecies, fill = factor(impact_category_lockwood)))
+gg <- ggplot(data=subset_of_top_ten, aes(x=reorder(invasivespecies,invasivespecies, function(x)-length(x)), fill = factor(impact_category_lockwood)))
 gg <- gg + geom_bar(stat="count")
 gg
 gg <- gg + scale_fill_brewer(palette="Set2")
@@ -35,9 +35,10 @@ gg <- gg + theme_tufte()
 gg
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Invasive Species")
-gg <- gg + ggtitle("Biological levels studied for top 10 invasive species")
+gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
+                 axis.title=element_text(size=14,face="bold"))
 gg <- gg + theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 12))
-gg <- gg + theme(legend.title=element_blank()) # Remove legen title
+gg <- gg + theme(legend.title=element_blank()) # Remove legend title
 gg
 
 
