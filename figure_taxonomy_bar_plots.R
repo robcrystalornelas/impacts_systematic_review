@@ -3,24 +3,47 @@ source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/cl
 
 ## LOAD PACKAGES ####
 library(dplyr)
-library(ggplot2)
 library(ggthemes)
 library(RColorBrewer)
 library(ggpubr)
 
 ## ORGANIZE DATA ####
-
 # Count of top 10 species
-species_counted <- as.data.frame(count(raw_data, invasivespecies))
+head(raw_data)
+species_counted <- as.data.frame(dplyr::count(raw_data, invasivespecies))
 species_ordered <- arrange(species_counted, desc(n))
 head(species_ordered)
+species_ordered <- rename(species_ordered, count = n)
+species_ordered$invasivespecies <- factor(species_ordered$invasivespecies, levels = species_ordered$invasivespecies[order(-species_ordered$count)])
 
+# Replace all invasive species names with a unique numerical identified
+levels(species_ordered$invasivespecies) <- 1:575
+head(species_ordered)
+
+# If we want to look at only TOP TEN
 top_ten_species <- slice(species_ordered, 1:10)
 top_ten_species <-as.data.frame(top_ten_species)
-top_ten_species <- rename(top_ten_species, count = n)
+top_ten_species <- dplyr::rename(top_ten_species, count = n)
 top_ten_species$invasivespecies <- factor(top_ten_species$invasivespecies, levels = top_ten_species$invasivespecies[order(-top_ten_species$count)])
 
-# Invasive species taxa for all years
+# Figure for ALL invasive species
+gg <- ggplot(data = species_ordered, aes(x=invasivespecies, y = count))
+gg <- gg + geom_bar(stat="identity", fill = "#FF6666")
+gg
+gg <- gg + theme_tufte()
+gg <- gg + ylab("Frequency")
+gg <- gg + xlab("Invasive Species")
+gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
+                 axis.title=element_text(size=14,face="bold"))
+gg <- gg + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
+gg
+
+pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_all_species_barplot.pdf")
+plot(gg)
+dev.off()
+dev.off()
+
+# TOP 10 Invasive species taxa for all years
 gg<- ggplot(data=top_ten_species, aes(x=invasivespecies, y=count))
 gg <- gg + geom_bar(stat="identity", fill = "#FF6666")
 gg
@@ -122,5 +145,4 @@ ggarrange(gg_first,gg_second,gg_third)
 dev.off()
 dev.off()
 
-?ggarrange
 
