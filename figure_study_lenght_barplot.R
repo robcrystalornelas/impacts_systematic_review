@@ -17,7 +17,7 @@ temporal_raw$studylength <- as.numeric(temporal_raw$studylength) # now conver th
 temporal_raw # check to make sure all numbers remained
 
 # Make bins so that they align with strayer categories
-temporal_raw$studylegnthbinned <- cut(temporal_raw$studylength, breaks = c(0,1,3,10,250), labels = c("0-1","1.1-3","3.1-10",">10"))
+temporal_raw$studylengthbinned <- cut(temporal_raw$studylength, breaks = c(0,1,3,10,250), labels = c("0-1","1.1-3","3.1-10",">10"))
 head(temporal_raw)
 
 ## MAKE FIGURES ####
