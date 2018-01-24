@@ -1,43 +1,44 @@
-# Statistics for temporal
+## LOAD PACKAGES ####
+library(tidyverse)
+library(ggthemes)
 
+## READ IN DATA ####
 source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
-library(dplyr)
-library(plyr)
 
+## CLEAN DATA ####
 head(temporal_raw)
-temporal_table <- xtabs(~impacttype + studylengthbinned, data=temporal_raw)
-temporal_table
+# General chi-square for just strayer figure.  
+counts_of_strayer <- count(temporal_raw$studylengthbinned)
+counts_of_strayer
+full_chi <- chisq.test(counts_of_strayer$freq)
+full_chi
+full_chi$expected
 
-# As a chi-squared
-chisq.test(temporal_table,correct=F)
-
-# as a log linear model
-calc1 <- loglin(temporal_table,margin=list(1,2))
-
-calc2 <- loglin(temporal_table, margin=list(1,2), fit = T, param=T)
-calc2
-# calc2$fit are the usual expected frequencies
-calc2$fit
-
-
-# Using the GLM function
+# loglinear modeling Using the GLM function
 temporal_and_impact <- select(temporal_raw, impacttype, studylengthbinned)
 temporal_and_impact_count <- plyr::count(temporal_and_impact)
 head(temporal_and_impact_count)
-class(temporal_and_impact_count$studylengthbinned)
-class(temporal_and_impact_count$impacttype)
-class(temporal_and_impact_count)
- 
-glm1 <- glm(freq~studylengthbinned*impacttype, family = poisson, data=temporal_and_impact_count)
-summary(glm1)
+
+# This is from tutorial using loglm()
+temporal_table = xtabs(freq ~ studylengthbinned + impacttype,
+              data=temporal_and_impact_count)
+temporal_table
+
+# Here's the test of mutual independence of the two varaibles of concern
+loglm_for_temp_table <- loglm( ~ studylengthbinned*impacttype,
+       temporal_table)
+loglm_for_temp_table
+
 # This equation is for a saturated loglinear model
+temporal_and_impact_count
+glm1 <- glm(freq ~ studylengthbinned*impacttype, data = temporal_and_impact_count, family = poisson())
+summary(glm1)
+glm1$xlevels
 # This lets us see if impact type is significant, if study length is signficant and 
 # if the interaction of impact type and study length are significant
-
 # is this model a good fit?
 # First, look at residual deviance in the summary above (really low! that's good)
 # then, the p-value in following should be ABOVE .05
-pchisq(deviance(glm1), df = df.residual(glm1), lower.tail = F)
 
 # Should we get rid of interaction
 drop1(glm1, test = "Chisq")
@@ -49,7 +50,7 @@ drop1(glm1, test = "Chisq")
 # This model assumes that study length and impact type are independent of each other
 # This is called the independence model
 # seems great! all 
-glm2 <- glm(freq ~ studylengthbinned + impacttype, data = temporal_and_impact_count, family = poisson)
+glm2 <- glm(freq ~ studylengthbinned + impacttype, data = temporal_and_impact_count, family = poisson())
 summary(glm2) # but the residual deviance is high, so lets look at the residuals.
 # high residuals might mean poor model fit
 # Rule of thumb is that residual deviance should be close to degrees of freedom
@@ -65,10 +66,3 @@ pchisq(deviance(glm2), df = df.residual(glm2), lower.tail = F)
 anova(glm1, glm2)
 # then take the deviance and put it into chi square
 pchisq(99.4, df = 1, lower.tail = F) # actually the two models are really different!
-
-# Check out model residuals
-par(mfrow=c(2,2))
-plot(glm1)
-dev.off()
-
- 
