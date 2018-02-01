@@ -1,7 +1,9 @@
 ## LOAD PACKAGES ####
-library(tidyverse)
+library(plyr)
+library(dplyr)
 library(ggthemes)
 library(broom)
+library(data.table)
 ## READ IN DATA ####
 source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
 
@@ -112,37 +114,76 @@ observed_freq_lotic <- subset_of_lotic$freq
 observed_freq_lotic
 
 subset_of_grass <- filter(table_rt_and_ecosystem, ecosystem == "grassland")
-observed_freq_grass <- subset_of_grass$freq
+subset_of_grass
+observed_freq_grass <- c(1,0,2,66)
 observed_freq_grass
 
 subset_of_estuarine <- filter(table_rt_and_ecosystem, ecosystem == "estuarine")
-observed_freq_estuarine <- subset_of_estuarine$freq
+subset_of_estuarine
+observed_freq_estuarine <- c(0,4,11,84)
 
 subset_of_urban <- filter(table_rt_and_ecosystem, ecosystem == "urban")
-observed_freq_urban <- subset_of_urban$freq
+subset_of_urban
 observed_freq_urban <- c(2,0,0,30)
 
-subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
-observed_freq_lotic <- subset_of_lotic$freq
+subset_of_island <- filter(table_rt_and_ecosystem, ecosystem == "island")
+subset_of_island
+observed_freq_island <- c(0,4,5,115)
 
-subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
-observed_freq_lotic <- subset_of_lotic$freq
+subset_of_mountain <- filter(table_rt_and_ecosystem, ecosystem == "mountain")
+subset_of_mountain
+observed_freq_mountain <- c(0,0,0,9)
 
-subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
-observed_freq_lotic <- subset_of_lotic$freq
+subset_of_multiple <- filter(table_rt_and_ecosystem, ecosystem == "multiple")
+subset_of_multiple
+observed_freq_multiple <- c(0,0,1,21)
 
-subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
-observed_freq_lotic <- subset_of_lotic$freq
+subset_of_lentic <- filter(table_rt_and_ecosystem, ecosystem == "lentic")
+subset_of_lentic
+observed_freq_lentic <- subset_of_lentic$freq
 
-subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
-observed_freq_lotic <- subset_of_lotic$freq
+subset_of_intertidal <- filter(table_rt_and_ecosystem, ecosystem == "intertidal")
+subset_of_intertidal
+observed_freq_intertidal <- c(0,6,4,49)
+
+subset_of_desert <- filter(table_rt_and_ecosystem, ecosystem == "desert")
+subset_of_desert
+observed_freq_desert <- c(0,0,0,6)
+
+subset_of_coastal <- filter(table_rt_and_ecosystem, ecosystem == "coastal")
+subset_of_coastal
+observed_freq_coastal <- c(0,2,3,25)
+
+subset_of_shrubland <- filter(table_rt_and_ecosystem, ecosystem == "shrubland")
+subset_of_shrubland
+observed_freq_shrubland <- c(0,2,0,25)
+
+subset_of_oceanic <- filter(table_rt_and_ecosystem, ecosystem == "oceanic")
+subset_of_oceanic
+observed_freq_oceanic <- c(0,10,11,25)
 
 ## subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "NA")
 
-observed_freq_lotic <- subset_of_lotic$freq
-
-table_rt_and_ecosystem
 # Chi-sqaured tests
+chisq.test(x = observed_freq_forest, p = prop_of_rt)
+chisq.test(x = observed_freq_lotic, p = prop_of_rt)
+chisq.test(x = observed_freq_grass, p = prop_of_rt)
+chisq.test(x = observed_freq_estuarine, p = prop_of_rt)
 chi_urban <- chisq.test(x = observed_freq_urban, p = prop_of_rt)
-
+chi_urban
+chi_urban$expected
+chi_urban$observed
+chi_island <- chisq.test(x = observed_freq_island, p = prop_of_rt)
+chi_island$observed
+chi_island$expected
+chisq.test(x = observed_freq_mountain, p = prop_of_rt)
+chisq.test(x = observed_freq_multiple, p = prop_of_rt)
+chisq.test(x = observed_freq_lentic, p = prop_of_rt)
+chisq.test(x = observed_freq_intertidal, p = prop_of_rt)
+chisq.test(x = observed_freq_desert, p = prop_of_rt)
+chisq.test(x = observed_freq_coastal, p = prop_of_rt)
+chisq.test(x = observed_freq_shrubland, p = prop_of_rt)
+ocean_chi <- chisq.test(x = observed_freq_oceanic, p = prop_of_rt)
+ocean_chi$observed
+ocean_chi$expected
 
