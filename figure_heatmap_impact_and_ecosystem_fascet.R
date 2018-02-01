@@ -25,6 +25,7 @@ top_impacts_and_ecosystem_and_yearbinned_count <- dplyr::count(top_impacts_and_e
 head(top_impacts_and_ecosystem_and_yearbinned_count)
 
 top_impacts_and_ecosystem_and_yearbinned_complete <- complete(top_impacts_and_ecosystem_and_yearbinned_count, impacttype, ecosystem, yearbinned,fill=list(n=NA))
+top_impacts_and_ecosystem_and_yearbinned_complete
 
 ## MAKE PLOT non-facet for select categories####
 gg <- ggplot(top_impacts_and_ecosystem_and_yearbinned_complete, aes(x=impacttype, y=ecosystem, fill=n))
@@ -45,8 +46,7 @@ dev.off()
 
 ## MAKE PLOT non-facet for all categories####
 all_impacts_and_ecosystems <- dplyr::count(impacts_t, impacttype, ecosystem)
-
-gg <- ggplot(all_impacts_and_ecosystems, aes(x=impacttype, y=ecosystem, fill=n))
+gg <- ggplot(all_impacts_and_ecosystems, aes(x=impacttype, y=ecosystem, fill = n))
 gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
 gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes
 gg <- gg + coord_equal()

@@ -1,10 +1,12 @@
 ## LOAD PACKAGES ####
 library(plyr)
 library(dplyr)
+library(tidyr)
 library(ggthemes)
 library(devtools)
 library(broom)
 library(data.table)
+
 ## READ IN DATA ####
 source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
 
@@ -95,7 +97,7 @@ expected_taxa_count <- counted_unique_species$n
 # Proportions of taxa WITHIN fitness
 # First, make sure all combinations of impact and taxa are complete, so we can get real proportions
 table_impacts_and_taxa
-complete_table_impacts_and_taxa <- complete(table_impacts_and_taxa, impacttype, invasivespeciestaxa, fill = list(freq=0))
+complete_table_impacts_and_taxa <- tidyr::complete(table_impacts_and_taxa, impacttype, invasivespeciestaxa, fill = list(freq=0))
 unique(table_impacts_and_taxa$invasivespeciestaxa)
 complete_table_impacts_and_taxa
 
@@ -209,6 +211,7 @@ observed_freq_tree <- subset_of_tree$freq
 subset_of_forest <- filter(complete_table_impacts_and_taxa, invasivespeciestaxa == "forest pathogen")
 observed_freq_forest <- subset_of_forest$freq
 
+subset_of_algae
 algae_chi <- chisq.test(x = observed_freq_algae, p = prop_of_impact_type)
 algae_chi
 algae_chi$observed
