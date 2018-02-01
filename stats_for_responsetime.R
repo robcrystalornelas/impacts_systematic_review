@@ -1,7 +1,7 @@
 ## LOAD PACKAGES ####
 library(tidyverse)
 library(ggthemes)
-
+library(broom)
 ## READ IN DATA ####
 source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
 
@@ -46,6 +46,9 @@ counts_of_rt_and_ecosystem
 
 glm1 <- glm(freq ~ responsetimebinned*ecosystem, data = counts_of_rt_and_ecosystem, family = poisson())
 summary(glm1)
+tidy_glm_response_time <- tidy(glm1)
+tidy_glm_response_time
+write.csv(tidy_glm_response_time, "/Users/rpecchia/Desktop/Impacts Systematic Review/output/coefficients_for_response_time.csv")
 
 # This lets us see if impact type is significant, if study length is signficant and 
 # if the interaction of impact type and study length are significant
@@ -79,3 +82,67 @@ pchisq(deviance(glm2), df = df.residual(glm2), lower.tail = F)
 anova(glm1, glm2)
 # then take the deviance and put it into chi square
 pchisq(54.013, df = 21, lower.tail = F) # actually the two models are really different!
+
+
+#### 
+## Now do the stats using proportions
+head(response_time_data_cc)
+response_time_data
+dim(response_time_data_cc)
+head(response_time_data_cc)
+response_time_data_cc$ecosystem
+counts_of_rt <- plyr::count(response_time_data_cc$responsetimebinned)
+head(counts_of_rt)
+setDT(counts_of_rt)[, Prop := freq/sum(freq)]
+prop_of_rt <- counts_of_rt$Prop
+prop_of_rt
+
+rt_and_ecosystem <- dplyr::select(response_time_data_cc,ecosystem,responsetimebinned)
+counts_of_rt_and_ecosystem <- plyr::count(rt_and_ecosystem)
+table_rt_and_ecosystem <- tbl_df(counts_of_rt_and_ecosystem)
+
+unique(raw_data$ecosystem)
+subset_of_forest <- filter(table_rt_and_ecosystem, ecosystem == "forest")
+subset_of_forest
+observed_freq_forest <- subset_of_forest$freq
+
+subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
+subset_of_lotic
+observed_freq_lotic <- subset_of_lotic$freq
+observed_freq_lotic
+
+subset_of_grass <- filter(table_rt_and_ecosystem, ecosystem == "grassland")
+observed_freq_grass <- subset_of_grass$freq
+observed_freq_grass
+
+subset_of_estuarine <- filter(table_rt_and_ecosystem, ecosystem == "estuarine")
+observed_freq_estuarine <- subset_of_estuarine$freq
+
+subset_of_urban <- filter(table_rt_and_ecosystem, ecosystem == "urban")
+observed_freq_urban <- subset_of_urban$freq
+observed_freq_urban <- c(2,0,0,30)
+
+subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
+observed_freq_lotic <- subset_of_lotic$freq
+
+subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
+observed_freq_lotic <- subset_of_lotic$freq
+
+subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
+observed_freq_lotic <- subset_of_lotic$freq
+
+subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
+observed_freq_lotic <- subset_of_lotic$freq
+
+subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "lotic")
+observed_freq_lotic <- subset_of_lotic$freq
+
+## subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "NA")
+
+observed_freq_lotic <- subset_of_lotic$freq
+
+table_rt_and_ecosystem
+# Chi-sqaured tests
+chi_urban <- chisq.test(x = observed_freq_urban, p = prop_of_rt)
+
+

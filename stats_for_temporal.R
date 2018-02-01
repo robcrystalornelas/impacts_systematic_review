@@ -1,7 +1,8 @@
 ## LOAD PACKAGES ####
-library(tidyverse)
+library(dplyr)
 library(ggthemes)
-
+library(broom)
+library(MASS)
 ## READ IN DATA ####
 source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
 
@@ -15,7 +16,7 @@ full_chi
 full_chi$expected
 
 # loglinear modeling Using the GLM function
-temporal_and_impact <- select(temporal_raw, impacttype, studylengthbinned)
+temporal_and_impact <- dplyr::select(temporal_raw, impacttype, studylengthbinned)
 temporal_and_impact_count <- plyr::count(temporal_and_impact)
 head(temporal_and_impact_count)
 
@@ -33,6 +34,10 @@ loglm_for_temp_table
 temporal_and_impact_count
 glm1 <- glm(freq ~ studylengthbinned*impacttype, data = temporal_and_impact_count, family = poisson())
 summary(glm1)
+tidy_glm_impact_time <- tidy(glm1)
+tidy_glm_impact_time
+write.csv(tidy_glm_impact_time, "/Users/rpecchia/Desktop/Impacts Systematic Review/output/coefficients_for_impact_and_time.csv")
+
 glm1$xlevels
 # This lets us see if impact type is significant, if study length is signficant and 
 # if the interaction of impact type and study length are significant
@@ -65,4 +70,86 @@ pchisq(deviance(glm2), df = df.residual(glm2), lower.tail = F)
 # if p is above .05 then both models fit equally...go with the simple
 anova(glm1, glm2)
 # then take the deviance and put it into chi square
+
+########################################################
+############### Chi-Squared w/ proportions
+##########################################
+
+t_temporal_and_impact <- tbl_df(temporal_and_impact_count)
+t_temporal_and_impact
+unique(t_temporal_and_impact$impacttype)
+
+# Proportions of each taxa using UNIQUE SPECIES
+head(temporal_raw)
+subset_impact_and_time <- dplyr::select(temporal_raw, impacttype, studylengthbinned)
+counted_studylength <- as.data.frame(dplyr::count(subset_impact_and_time, studylengthbinned))
+head(counted_studylength)
+
+setDT(counted_studylength)[, Prop := n/sum(n)]
+expected_studylength <- counted_studylength$Prop
+expected_studylength
+# Proportions of taxa WITHIN fitness
+# First, make sure all combinations of impact and taxa are complete, so we can get real proportions
+t_temporal_and_impact
+complete_t_impact_and_length <- complete(t_temporal_and_impact, studylengthbinned, impacttype, fill = list(freq=0))
+unique(complete_t_impact_and_length$studylengthbinned)
+# Get observe freq for all categories
+subset_of_abundance_t <- filter(complete_t_impact_and_length, impacttype == "abundance")
+observed_freq_abundance_t <- subset_of_abundance_t$freq
+
+subset_of_behavior_t <- filter(complete_t_impact_and_length, impacttype == "behavior")
+observed_freq_behavior_t <- subset_of_behavior_t$freq
+
+subset_of_diversity_t <- filter(complete_t_impact_and_length, impacttype == "diversity")
+observed_freq_diversity_t <- subset_of_diversity_t$freq
+
+subset_of_fitness_t <- filter(complete_t_impact_and_length, impacttype == "fitness")
+observed_freq_fitness_t <- subset_of_fitness_t$freq
+
+subset_of_growth_t <- filter(complete_t_impact_and_length, impacttype == "growth")
+observed_freq_growth_t <- subset_of_growth_t$freq
+
+subset_of_habitatchange_t <- filter(complete_t_impact_and_length, impacttype == "habitat change")
+observed_freq_habitatchange_t <- subset_of_habitatchange_t$freq
+
+subset_of_hybrid_t <- filter(complete_t_impact_and_length, impacttype == "hybridization")
+observed_freq_hybrid_t <- subset_of_hybrid_t$freq
+
+subset_of_indirect_t <- filter(complete_t_impact_and_length, impacttype == "indirect")
+observed_freq_indirect_t <- subset_of_indirect_t$freq
+
+subset_of_nutrient_t <- filter(complete_t_impact_and_length, impacttype == "nutrient availability")
+observed_freq_nutrient_t <- subset_of_nutrient_t$freq
+
+subset_of_other_t <- filter(complete_t_impact_and_length, impacttype == "other")
+observed_freq_other_t <- subset_of_other_t$freq
+
+subset_of_production_t <- filter(complete_t_impact_and_length, impacttype == "production")
+observed_freq_production_t <- subset_of_production_t$freq
+
+
+# chi-squared for all impact types
+abundance_chi <- chisq.test(x = observed_freq_abundance_t, p = expected_studylength)
+abundance_chi$observed
+abundance_chi$expected
+t_temporal_and_impact$studylengthbinned
+chisq.test(x = observed_freq_behavior_t, p = expected_studylength)
+diversity_chi<-chisq.test(x = observed_freq_diversity_t, p = expected_studylength)
+diversity_chi$observed
+diversity_chi$expected
+
+chisq.test(x = observed_freq_fitness_t, p = expected_studylength)
+chisq.test(x = observed_freq_growth_t, p = expected_studylength)
+chisq.test(x = observed_freq_habitatchange_t, p = expected_studylength)
+chisq.test(x = observed_freq_hybrid_t, p = expected_studylength)
+chisq.test(x = observed_freq_indirect_t, p = expected_studylength)
+nutrient_chi <- chisq.test(x = observed_freq_nutrient_t, p = expected_studylength)
+nutrient_chi$observed
+nutrient_chi$expected
+chisq.test(x = observed_freq_other_t, p = expected_studylength)
+chisq.test(x = observed_freq_production_t, p = expected_studylength)
+
+
+
+
 pchisq(99.4, df = 1, lower.tail = F) # actually the two models are really different!

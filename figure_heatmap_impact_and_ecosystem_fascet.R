@@ -21,12 +21,43 @@ library(knitr)
 ## ORGANIZE DATA ####
 
 # Make sure that year-binned is now part of the count
-top_impacts_and_ecosystem_and_yearbinned_count <- count(top_impacts_and_ecosystem_t, impacttype, ecosystem, yearbinned) # count function has to come BEFORE complete
+top_impacts_and_ecosystem_and_yearbinned_count <- dplyr::count(top_impacts_and_ecosystem_t, impacttype, ecosystem, yearbinned) # count function has to come BEFORE complete
 head(top_impacts_and_ecosystem_and_yearbinned_count)
 
 top_impacts_and_ecosystem_and_yearbinned_complete <- complete(top_impacts_and_ecosystem_and_yearbinned_count, impacttype, ecosystem, yearbinned,fill=list(n=NA))
 
-## MAKE PLOT ####
+## MAKE PLOT non-facet for select categories####
+gg <- ggplot(top_impacts_and_ecosystem_and_yearbinned_complete, aes(x=impacttype, y=ecosystem, fill=n))
+gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
+gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes
+gg <- gg + coord_equal()
+gg <- gg + labs(x = NULL, y = NULL, title="Impact Type & Ecosystem") # This is the title of the plot
+gg <- gg + theme_tufte(base_family="Helvetica")
+gg <- gg + theme(axis.ticks=element_blank())
+gg <- gg + theme(axis.text.x=element_text(size=12, angle = 45, hjust = 1))
+gg <- gg + theme(axis.text.y=element_text(size=12))
+gg
+
+pdf(file="~/Desktop/Impacts Systematic Review/figures/impact_type_and_ecosystem_heatmap.pdf")
+gg
+dev.off()
+dev.off()
+
+## MAKE PLOT non-facet for all categories####
+all_impacts_and_ecosystems <- dplyr::count(impacts_t, impacttype, ecosystem)
+
+gg <- ggplot(all_impacts_and_ecosystems, aes(x=impacttype, y=ecosystem, fill=n))
+gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
+gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes
+gg <- gg + coord_equal()
+gg <- gg + labs(x = NULL, y = NULL, title="Impact Type & Ecosystem") # This is the title of the plot
+gg <- gg + theme_tufte(base_family="Helvetica")
+gg <- gg + theme(axis.ticks=element_blank())
+gg <- gg + theme(axis.text.x=element_text(size=12, angle = 45, hjust = 1))
+gg <- gg + theme(axis.text.y=element_text(size=12))
+gg
+
+## MAKE PLOT fascet####
 gg <- ggplot(top_impacts_and_ecosystem_and_yearbinned_complete, aes(x=impacttype, y=ecosystem, fill=n))
 gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
 gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes

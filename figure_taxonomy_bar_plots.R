@@ -13,12 +13,13 @@ head(raw_data)
 species_counted <- as.data.frame(dplyr::count(raw_data, invasivespecies))
 species_ordered <- arrange(species_counted, desc(n))
 head(species_ordered)
-species_ordered <- rename(species_ordered, count = n)
+species_ordered
+species_ordered <- dplyr::rename(species_ordered, count = n)
 species_ordered$invasivespecies <- factor(species_ordered$invasivespecies, levels = species_ordered$invasivespecies[order(-species_ordered$count)])
 
 # Replace all invasive species names with a unique numerical identified
-levels(species_ordered$invasivespecies) <- 1:575
-head(species_ordered)
+# levels(species_ordered$invasivespecies) <- 1:575
+# head(species_ordered)
 
 # If we want to look at only TOP TEN
 top_ten_species <- slice(species_ordered, 1:10)
@@ -62,16 +63,17 @@ dev.off()
 
 # Now created same figure, but fasceted in 5 year increments
 ## ORGANIZE DATA ####
-species_counted_fascet <- as.data.frame(count(raw_data, invasivespecies,yearbinned))
+species_counted_fascet <- as.data.frame(dplyr::count(raw_data, invasivespecies,yearbinned))
 head(species_counted_fascet)
 
 # 1999-2004
 species_counted_first_six <- filter(species_counted_fascet, yearbinned == "1999-2004")
 species_counted_first_six <- arrange(species_counted_first_six, desc(n))
 head(species_counted_first_six)
+species_counted_first_six
 species_counted_first_six_top_ten <- slice(species_counted_first_six, 1:10)
 species_counted_first_six_top_ten <-as.data.frame(species_counted_first_six_top_ten)
-species_counted_first_six_top_ten <- rename(species_counted_first_six_top_ten, count = n)
+species_counted_first_six_top_ten <- dplyr::rename(species_counted_first_six_top_ten, count = n)
 species_counted_first_six_top_ten$invasivespecies <- factor(species_counted_first_six_top_ten$invasivespecies, levels = species_counted_first_six_top_ten$invasivespecies[order(-species_counted_first_six_top_ten$count)])
 head(species_counted_first_six_top_ten)
 
@@ -79,6 +81,7 @@ head(species_counted_first_six_top_ten)
 species_counted_second_six <-filter(species_counted_fascet, yearbinned == "2005-2010")
 species_counted_second_six <- arrange(species_counted_second_six, desc(n))
 head(species_counted_second_six)
+species_counted_second_six
 species_counted_second_six_top_ten <- slice(species_counted_second_six, 1:10)
 species_counted_second_six_top_ten <-as.data.frame(species_counted_second_six_top_ten)
 species_counted_second_six_top_ten <- rename(species_counted_second_six_top_ten, count = n)
@@ -89,6 +92,7 @@ head(species_counted_second_six_top_ten)
 species_counted_third_six <- filter(species_counted_fascet, yearbinned == "2011-2016")
 species_counted_third_six <- arrange(species_counted_third_six, desc(n))
 head(species_counted_third_six)
+species_counted_third_six
 species_counted_third_six_top_ten <- slice(species_counted_third_six, 1:10)
 species_counted_third_six_top_ten <-as.data.frame(species_counted_third_six_top_ten)
 species_counted_third_six_top_ten <- rename(species_counted_third_six_top_ten, count = n)

@@ -9,46 +9,39 @@ library(grid)
 
 ## ORGANIZE DATA ####
 head(raw_data)
-subset_species_and_taxa <- select(raw_data, invasivespecies, invasivespeciestaxa)
+subset_species_and_taxa <- dplyr::select(raw_data, invasivespecies, invasivespeciestaxa)
 unique_species_and_taxa <- unique(subset_species_and_taxa)
 head(unique_species_and_taxa)
 dim(unique_species_and_taxa)
-count(unique_species_and_taxa, invasivespeciestaxa)
-
-# Now, focus on fish, and diversity within the fish group
-subset_species_and_taxa <- select(raw_data, invasivespecies, invasivespeciestaxa)
-subset_fish_species <- dplyr::filter(subset_species_and_taxa, invasivespeciestaxa=="fish")
-dim(subset_fish_species)
-counted_fish_species <- as.data.frame(count(subset_fish_species, invasivespecies))
-counted_fish_species
-
-# Now, focus on mammals, and diversity within the mammals group
-subset_species_and_taxa <- select(raw_data, invasivespecies, invasivespeciestaxa)
-subset_mammal_species <- dplyr::filter(subset_species_and_taxa, invasivespeciestaxa=="mammal")
-dim(subset_mammal_species)
-counted_mammal_species <- as.data.frame(count(subset_mammal_species, invasivespecies))
-counted_mammal_species
-
-# Now, focus on plants, and diversity within the plants group
-subset_species_and_taxa <- select(raw_data, invasivespecies, invasivespeciestaxa)
-subset_herbs <- dplyr::filter(subset_species_and_taxa, invasivespeciestaxa=="herbaceous plant")
-subset_tree <- dplyr::filter(subset_species_and_taxa, invasivespeciestaxa=="tree")
-subset_grass <- dplyr::filter(subset_species_and_taxa, invasivespeciestaxa=="grasses")
-subset_plant_species<-rbind(subset_herbs,subset_tree,subset_grass)
-dim(subset_plant_species)
-counted_plant_species <- as.data.frame(count(subset_plant_species, invasivespecies))
-counted_plant_species
-as.character(counted_broad_taxa$invasivespeciestaxa)
+counted_unique_species <- as.data.frame(dplyr::count(unique_species_and_taxa, invasivespeciestaxa))
+labels_unique_species <- as.character(counted_unique_species$invasivespeciestaxa)
+dim(counted_unique_species)
+counted_unique_species
+sum(counted_unique_species$n)
 # Organize table of broad taxonomic groups
-counted_broad_taxa <- as.data.frame(count(raw_data, invasivespeciestaxa))
+counted_broad_taxa <- as.data.frame(dplyr::count(raw_data, invasivespeciestaxa)) 
 order(counted_broad_taxa$n)
-
 labels_new <- as.character(counted_broad_taxa$invasivespeciestaxa)
+dim(counted_broad_taxa)
+counted_broad_taxa
+
 ## MAKE FIGURES ####
-pie(counted_broad_taxa$n,counted_broad_taxa$invasivespeciestaxa,radius = 1, cex = .5, col = colorRampPalette(solarized_pal()(8))(16))
+bp <- ggplot(counted_unique_species, aes(x=invasivespeciestaxa,y=n, fill=invasivespeciestaxa)) +
+  geom_bar(width = 1, stat = "identity")
+bp
+
+pie <- bp + coord_polar(theta = "x")
+pie
+
+pie_colors <- pie +
+  theme_minimal()
+pie_colors
+
+lbls <- counted_unique_species$invasivespeciestaxa
+pie <- pie(counted_unique_species$n,labels = lbls, col=rainbow(length(lbls)), init.angle=-30)
 
 # Save figure
 pdf(file="~/Desktop/Impacts Systematic Review/figures/taxaonomy_pie_chart.pdf")
-pie(counted_broad_taxa$n,counted_broad_taxa$invasivespeciestaxa,radius = 1, cex = .5, col = colorRampPalette(solarized_pal()(8))(16))
+pie(counted_unique_species$n,labels = lbls, col=rainbow(length(lbls)), init.angle=-30)
 dev.off()
 dev.off()

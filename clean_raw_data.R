@@ -7,7 +7,7 @@ raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Crystal-Ornelas_et_al_
 raw_data$yearbinned <- cut(raw_data$publicationyear, breaks = c(1998,2004,2010,2017), labels = c("1999-2004","2005-2010","2011-2016"))
 
 # Creating new column with study length binned
-temporal_raw <- select(raw_data,impacttype,publicationyear,firstyeardetected,firstyearatsite,yearbegins,yearends,studylength)
+temporal_raw <- dplyr::select(raw_data,impacttype,publicationyear,firstyeardetected,firstyearatsite,yearbegins,yearends,studylength)
 
 # R doesn't know what to do with <1 factor, so replace with numerical placeholder
 temporal_raw$studylength <- as.character(temporal_raw$studylength) # first make it a character vector
