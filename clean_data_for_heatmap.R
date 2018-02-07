@@ -1,7 +1,7 @@
 library(tidyr)
 library(plyr)
 library(knitr)
-impacts_raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Crystal-Ornelas_et_al_SR_v15.csv", header=TRUE, na.strings = "")
+impacts_raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Crystal-Ornelas_et_al_SR_v16.csv", header=TRUE, na.strings = "")
 head(impacts_raw_data)
 
 # Add new column with years binned
@@ -44,3 +44,4 @@ top_impacts_and_ecosystem_count <- dplyr::count(top_impacts_and_ecosystem_t, imp
 
 # Run complete function
 top_impacts_and_ecosystem_complete <- complete(top_impacts_and_ecosystem_count, impacttype, ecosystem, fill=list(n=NA))
+

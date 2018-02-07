@@ -24,19 +24,20 @@ species_ordered$invasivespecies <- factor(species_ordered$invasivespecies, level
 # If we want to look at only TOP TEN
 top_ten_species <- slice(species_ordered, 1:10)
 top_ten_species <-as.data.frame(top_ten_species)
-top_ten_species <- dplyr::rename(top_ten_species, count = n)
+top_ten_species
+head(top_ten_species)
 top_ten_species$invasivespecies <- factor(top_ten_species$invasivespecies, levels = top_ten_species$invasivespecies[order(-top_ten_species$count)])
-
+species_ordered
 # Figure for ALL invasive species
 gg <- ggplot(data = species_ordered, aes(x=invasivespecies, y = count))
 gg <- gg + geom_bar(stat="identity", fill = "#FF6666")
-gg
 gg <- gg + theme_tufte()
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Invasive Species")
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
-                 axis.title=element_text(size=14,face="bold"))
-gg <- gg + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
+                 axis.title=element_text(size=14,face="bold"),
+                 axis.text.x=element_blank(),
+                 axis.ticks = element_blank())
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_all_species_barplot.pdf")

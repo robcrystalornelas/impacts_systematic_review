@@ -15,7 +15,7 @@ gg <-gg + geom_bar(stat="count", fill = "#1f78b4")
 gg
 gg <- gg + theme_tufte()
 gg <- gg + ylab("Frequency")
-gg <- gg + xlab("Impact Type")
+gg <- gg + xlab("Ecological Effect")
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.title=element_text(size=14,face="bold"),
                  axis.text.x = element_text(angle = 45, hjust = 1)) # Change axis title size
