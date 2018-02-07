@@ -2,12 +2,16 @@
 source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## LOAD PACKAGES ####
+library(plyr)
 library(dplyr)
 library(ggplot2)
 library(ggthemes)
 
 ## ORGANIZE DATA ####
 impact_and_taxa <- dplyr::select(raw_data, impacttype, invasivespeciestaxa)
+head(impact_and_taxa)
+counted_impacts <- as.data.frame(dplyr::count(raw_data, impacttype)) 
+counted_impacts
 
 ## MAKE FIGURES ####
 gg <- ggplot(impact_and_taxa, aes(x = reorder(impacttype,impacttype, function(x)-length(x))))

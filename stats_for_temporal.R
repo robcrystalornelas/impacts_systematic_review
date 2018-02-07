@@ -130,11 +130,13 @@ observed_freq_production_t <- subset_of_production_t$freq
 
 # chi-squared for all impact types
 abundance_chi <- chisq.test(x = observed_freq_abundance_t, p = expected_studylength)
+abundance_chi
 abundance_chi$observed
 abundance_chi$expected
 t_temporal_and_impact$studylengthbinned
 chisq.test(x = observed_freq_behavior_t, p = expected_studylength)
 diversity_chi<-chisq.test(x = observed_freq_diversity_t, p = expected_studylength)
+diversity_chi
 diversity_chi$observed
 diversity_chi$expected
 
@@ -144,12 +146,8 @@ chisq.test(x = observed_freq_habitatchange_t, p = expected_studylength)
 chisq.test(x = observed_freq_hybrid_t, p = expected_studylength)
 chisq.test(x = observed_freq_indirect_t, p = expected_studylength)
 nutrient_chi <- chisq.test(x = observed_freq_nutrient_t, p = expected_studylength)
+nutrient_chi
 nutrient_chi$observed
 nutrient_chi$expected
 chisq.test(x = observed_freq_other_t, p = expected_studylength)
 chisq.test(x = observed_freq_production_t, p = expected_studylength)
-
-
-
-
-pchisq(99.4, df = 1, lower.tail = F) # actually the two models are really different!

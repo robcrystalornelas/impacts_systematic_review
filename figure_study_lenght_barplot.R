@@ -23,7 +23,7 @@ head(temporal_raw)
 ## MAKE FIGURES ####
 
 # Overall Study Length
-gg <- ggplot(data=temporal_raw, aes(x=studylegnthbinned))
+gg <- ggplot(data=temporal_raw, aes(x=studylengthbinned))
 gg <- gg + geom_bar(stat="count", fill = "#fec44f")
 gg
 gg <- gg + theme_tufte()
