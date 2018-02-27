@@ -46,46 +46,46 @@ counts_of_rt_and_ecosystem <- dplyr::select(response_time_data_cc, ecosystem, re
 plyr::count()
 counts_of_rt_and_ecosystem
 
-glm1 <- glm(freq ~ responsetimebinned*ecosystem, data = counts_of_rt_and_ecosystem, family = poisson())
-summary(glm1)
-tidy_glm_response_time <- tidy(glm1)
-tidy_glm_response_time
-write.csv(tidy_glm_response_time, "/Users/rpecchia/Desktop/Impacts Systematic Review/output/coefficients_for_response_time.csv")
-
-# This lets us see if impact type is significant, if study length is signficant and 
-# if the interaction of impact type and study length are significant
-# is this model a good fit?
-# First, look at residual deviance in the summary above (really low! that's good)
-# then, the p-value in following should be ABOVE .05
-
-# Should we get rid of interaction
-drop1(glm1, test = "Chisq")
-# second line of results "impacttpye:studylnegthbinned is the model without the interaction
-# Since p-value is below .05, we should drop the interaction
-
-# so let's drop that interaction and just look at main effects.
-# all main effects are signficant
-# This model assumes that study length and impact type are independent of each other
-# This is called the independence model
-# seems great! all 
-glm2 <- glm(freq ~ responsetimebinned + ecosystem, data = counts_of_rt_and_ecosystem, family = poisson())
-summary(glm2) # but the residual deviance is high, so lets look at the residuals.
-# high residuals might mean poor model fit
-# Rule of thumb is that residual deviance should be close to degrees of freedom
-
-# we can used chisq test to see if expected freuencies satisfy the simpler model
-# a low p-value here indicates that they do not!
-pchisq(deviance(glm2), df = df.residual(glm2), lower.tail = F)
-# Taken together, we should feel confident going with the more complex model
-
-# glm1 is fully saturated and really complex. glm2 is really simple, maybe overly simple
-# check an anova to see if one model is better than the other
-# if p is above .05 then both models fit equally...go with the simple
-anova(glm1, glm2)
-# then take the deviance and put it into chi square
-pchisq(54.013, df = 21, lower.tail = F) # actually the two models are really different!
-
-
+# glm1 <- glm(freq ~ responsetimebinned*ecosystem, data = counts_of_rt_and_ecosystem, family = poisson())
+# summary(glm1)
+# tidy_glm_response_time <- tidy(glm1)
+# tidy_glm_response_time
+# write.csv(tidy_glm_response_time, "/Users/rpecchia/Desktop/Impacts Systematic Review/output/coefficients_for_response_time.csv")
+# 
+# # This lets us see if impact type is significant, if study length is signficant and 
+# # if the interaction of impact type and study length are significant
+# # is this model a good fit?
+# # First, look at residual deviance in the summary above (really low! that's good)
+# # then, the p-value in following should be ABOVE .05
+# 
+# # Should we get rid of interaction
+# drop1(glm1, test = "Chisq")
+# # second line of results "impacttpye:studylnegthbinned is the model without the interaction
+# # Since p-value is below .05, we should drop the interaction
+# 
+# # so let's drop that interaction and just look at main effects.
+# # all main effects are signficant
+# # This model assumes that study length and impact type are independent of each other
+# # This is called the independence model
+# # seems great! all 
+# glm2 <- glm(freq ~ responsetimebinned + ecosystem, data = counts_of_rt_and_ecosystem, family = poisson())
+# summary(glm2) # but the residual deviance is high, so lets look at the residuals.
+# # high residuals might mean poor model fit
+# # Rule of thumb is that residual deviance should be close to degrees of freedom
+# 
+# # we can used chisq test to see if expected freuencies satisfy the simpler model
+# # a low p-value here indicates that they do not!
+# pchisq(deviance(glm2), df = df.residual(glm2), lower.tail = F)
+# # Taken together, we should feel confident going with the more complex model
+# 
+# # glm1 is fully saturated and really complex. glm2 is really simple, maybe overly simple
+# # check an anova to see if one model is better than the other
+# # if p is above .05 then both models fit equally...go with the simple
+# anova(glm1, glm2)
+# # then take the deviance and put it into chi square
+# pchisq(54.013, df = 21, lower.tail = F) # actually the two models are really different!
+# 
+# 
 #### 
 ## Now do the stats using proportions
 head(response_time_data_cc)
@@ -165,44 +165,27 @@ observed_freq_oceanic <- c(0,10,11,25)
 ## subset_of_lotic <- filter(table_rt_and_ecosystem, ecosystem == "NA")
 
 # Chi-sqaured tests
-chisq.test(x = observed_freq_forest, p = prop_of_rt)
-chisq.test(x = observed_freq_lotic, p = prop_of_rt)
-chisq.test(x = observed_freq_grass, p = prop_of_rt)
-chisq.test(x = observed_freq_estuarine, p = prop_of_rt)
-chi_urban <- chisq.test(x = observed_freq_urban, p = prop_of_rt)
+chisq.test(x = observed_freq_forest, p = prop_of_rt, simulate.p.value = TRUE)
+chisq.test(x = observed_freq_lotic, p = prop_of_rt,simulate.p.value = TRUE)
+chisq.test(x = observed_freq_grass, p = prop_of_rt, simulate.p.value = TRUE)
+chisq.test(x = observed_freq_estuarine, p = prop_of_rt, simulate.p.value = TRUE)
+chi_urban <- chisq.test(x = observed_freq_urban, p = prop_of_rt, simulate.p.value = TRUE)
 chi_urban
 chi_urban$expected
 chi_urban$observed
-chi_island <- chisq.test(x = observed_freq_island, p = prop_of_rt)
+chi_island <- chisq.test(x = observed_freq_island, p = prop_of_rt, simulate.p.value = TRUE)
 chi_island
 chi_island$observed
 chi_island$expected
-chisq.test(x = observed_freq_mountain, p = prop_of_rt)
+chisq.test(x = observed_freq_mountain, p = prop_of_rt, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_multiple, p = prop_of_rt, simulate.p.value = FALSE)
-chisq.test(x = observed_freq_lentic, p = prop_of_rt)
-chisq.test(x = observed_freq_intertidal, p = prop_of_rt)
-chisq.test(x = observed_freq_desert, p = prop_of_rt)
-chisq.test(x = observed_freq_coastal, p = prop_of_rt)
-chisq.test(x = observed_freq_shrubland, p = prop_of_rt)
-ocean_chi <- chisq.test(x = observed_freq_oceanic, p = prop_of_rt)
+chisq.test(x = observed_freq_lentic, p = prop_of_rt, simulate.p.value = TRUE)
+chisq.test(x = observed_freq_intertidal, p = prop_of_rt, simulate.p.value = TRUE)
+chisq.test(x = observed_freq_desert, p = prop_of_rt, simulate.p.value = TRUE)
+chisq.test(x = observed_freq_coastal, p = prop_of_rt, simulate.p.value = TRUE)
+chisq.test(x = observed_freq_shrubland, p = prop_of_rt, simulate.p.value = TRUE)
+ocean_chi <- chisq.test(x = observed_freq_oceanic, p = prop_of_rt, simulate.p.value = TRUE)
 ocean_chi
 ocean_chi$observed
 ocean_chi$expected
-
-### With simulated p-values
-chisq.test(x = observed_freq_forest, p = prop_of_rt,simulate.p.value = TRUE)
-chisq.test(x = observed_freq_lotic, p = prop_of_rt,simulate.p.value = TRUE)
-chisq.test(x = observed_freq_grass, p = prop_of_rt,simulate.p.value = TRUE)
-chisq.test(x = observed_freq_estuarine, p = prop_of_rt,simulate.p.value = TRUE)
-chisq.test(x = observed_freq_urban, p = prop_of_rt,simulate.p.value = TRUE)
-chisq.test(x = observed_freq_island, p = prop_of_rt,simulate.p.value = TRUE)
-chisq.test(x = observed_freq_multiple, p = prop_of_rt, simulate.p.value = TRUE)
-chisq.test(x = observed_freq_lentic, p = prop_of_rt)
-chisq.test(x = observed_freq_intertidal, p = prop_of_rt)
-chisq.test(x = observed_freq_desert, p = prop_of_rt)
-chisq.test(x = observed_freq_coastal, p = prop_of_rt)
-chisq.test(x = observed_freq_shrubland, p = prop_of_rt)
-chisq.test(x = observed_freq_oceanic, p = prop_of_rt)
-
-
-
+?chisq.test
