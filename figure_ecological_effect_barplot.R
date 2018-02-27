@@ -29,5 +29,3 @@ pdf(file="~/Desktop/Impacts Systematic Review/figures/overall_impact_type_barplo
 gg
 dev.off()
 dev.off()
-# gg <-gg + theme(axis.text.x = element_text(angle = 60, hjust = 1))
-# gg

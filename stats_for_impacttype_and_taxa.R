@@ -138,7 +138,9 @@ observed_freq_production <- subset_of_production$freq
 # chi-squared for all impact types
 chisq.test(x = observed_freq_abundance, p = expected_taxa_prop)
 chi_behavior <- chisq.test(x = observed_freq_behavior, p = expected_taxa_prop)
+chi_behavior
 chi_diversity <- chisq.test(x = observed_freq_diversity, p = expected_taxa_prop)
+chi_diversity
 chi_diversity$observed
 chi_diversity$expected
 chisq.test(x = observed_freq_fitness, p = expected_taxa_prop)
@@ -217,6 +219,7 @@ algae_chi
 algae_chi$observed
 algae_chi$expected
 chi_amphib<-chisq.test(x = observed_freq_ampihb, p = prop_of_impact_type)
+chi_amphib
 chi_amphib$observed
 chi_amphib$expected
 chisq.test(x = observed_freq_aquaticplant, p = prop_of_impact_type)
@@ -224,15 +227,16 @@ chisq.test(x = observed_freq_bird, p = prop_of_impact_type)
 chisq.test(x = observed_freq_crust, p = prop_of_impact_type)
 chisq.test(x = observed_freq_fish, p = prop_of_impact_type)
 fungi_chi <- chisq.test(x = observed_freq_fungi, p = prop_of_impact_type)
+fungi_chi
 fungi_chi$observed
 fungi_chi$expected
-
 chisq.test(x = observed_freq_grass, p = prop_of_impact_type)
 chisq.test(x = observed_freq_herb, p = prop_of_impact_type)
 chisq.test(x = observed_freq_insect, p = prop_of_impact_type)
 chisq.test(x = observed_freq_mammal, p = prop_of_impact_type)
 chisq.test(x = observed_freq_marineinvert, p = prop_of_impact_type)
 moll_chi <- chisq.test(x = observed_freq_moll, p = prop_of_impact_type)
+moll_chi
 moll_chi$observed
 moll_chi$expected
 chisq.test(x = observed_freq_terrestrialinvert, p = prop_of_impact_type)

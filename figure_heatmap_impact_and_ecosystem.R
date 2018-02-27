@@ -39,7 +39,7 @@ gg <- gg + theme(axis.text.x=element_text(size=12, angle = 45, hjust = 1))
 gg <- gg + theme(axis.text.y=element_text(size=12))
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/impact_type_and_ecosystem_heatmap.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_heatmap_ecological_effect_and_ecosystem.pdf")
 gg
 dev.off()
 dev.off()

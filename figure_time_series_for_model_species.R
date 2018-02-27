@@ -23,29 +23,29 @@ vals <- expand.grid(invasivespecies = unique(counted_species_and_year$invasivesp
                     publicationyear = unique(counted_species_and_year$publicationyear))
 counted_species_and_year_final <- merge(vals,counted_species_and_year,all = TRUE)
 counted_species_and_year_final[is.na(counted_species_and_year_final)] <- 0
-
-# Make the figure
-gg <- ggplot(counted_species_and_year_final, aes(x=publicationyear, y=freq, group = invasivespecies, colour = invasivespecies)) +
-      geom_line(size = 2) +
-  scale_colour_brewer(type = "div")
-  gg
-
-pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_time_series.pdf")
-gg
-dev.off()
-dev.off()
-
-# Try it out as dodged barplot
-head(counted_species_and_year_final)
-gg <- ggplot(counted_species_and_year_final,aes(x = publicationyear, y = freq)) + 
-  geom_bar(aes(fill = invasivespecies),stat = "identity", position = "dodge") +
-  theme_tufte()
-gg
-pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_dodged_barplot.pdf")
-gg
-dev.off()
-dev.off()
-
+# 
+# # Make the figure
+# gg <- ggplot(counted_species_and_year_final, aes(x=publicationyear, y=freq, group = invasivespecies, colour = invasivespecies)) +
+#       geom_line(size = 2) +
+#   scale_colour_brewer(type = "div")
+#   gg
+# 
+# pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_time_series.pdf")
+# gg
+# dev.off()
+# dev.off()
+# 
+# # Try it out as dodged barplot
+# head(counted_species_and_year_final)
+# gg <- ggplot(counted_species_and_year_final,aes(x = publicationyear, y = freq)) + 
+#   geom_bar(aes(fill = invasivespecies),stat = "identity", position = "dodge") +
+#   theme_tufte()
+# gg
+# pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_dodged_barplot.pdf")
+# gg
+# dev.off()
+# dev.off()
+# 
 
 # 5 year increments
 ## CLEAN DATA ####
@@ -69,18 +69,18 @@ gg <- ggplot(counted_species_and_year_final, aes(x=yearbinned, y=freq, group = i
   geom_line(size = 2) +
   scale_colour_brewer(type = "div")
 gg
-pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_binned_time_series.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_binned_time_series.pdf")
 gg
 dev.off()
 dev.off()
 
-# Try it out as dodged barplot 5 YEAR INCREMENTS
-head(counted_species_and_year_final)
-gg <- ggplot(counted_species_and_year_final,aes(x = yearbinned, y = freq)) + 
-  geom_bar(aes(fill = invasivespecies),stat = "identity", position = "dodge") +
-  theme_tufte()
-gg
-pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_dodged_barplot_yearbinned.pdf")
-gg
-dev.off()
-dev.off()
+# # Try it out as dodged barplot 5 YEAR INCREMENTS
+# head(counted_species_and_year_final)
+# gg <- ggplot(counted_species_and_year_final,aes(x = yearbinned, y = freq)) + 
+#   geom_bar(aes(fill = invasivespecies),stat = "identity", position = "dodge") +
+#   theme_tufte()
+# gg
+# pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_dodged_barplot_yearbinned.pdf")
+# gg
+# dev.off()
+# dev.off()

@@ -2,7 +2,7 @@ library(countrycode)
 library(dplyr)
 
 # Add a column w/ country code
-raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Crystal-Ornelas_et_al_SR_v14.csv", header=TRUE)
+raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Crystal-Ornelas_et_al_SR_v17.csv", header=TRUE)
 
 head(raw_data)
 code_and_country <- select(raw_data, code, country)
@@ -19,4 +19,4 @@ head(raw_data)
 
 country_code_df_2 <- countrycode(as.character(code_and_country$country), origin = "country.name", destination = "country.name", warn = TRUE)
 
-write.csv(raw_data, file = "/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO.csv")
+write.csv(raw_data, file = "/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO_3.csv")

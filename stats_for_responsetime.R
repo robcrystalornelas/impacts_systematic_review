@@ -174,19 +174,18 @@ chi_urban
 chi_urban$expected
 chi_urban$observed
 chi_island <- chisq.test(x = observed_freq_island, p = prop_of_rt)
+chi_island
 chi_island$observed
 chi_island$expected
 chisq.test(x = observed_freq_mountain, p = prop_of_rt)
-?chisq.test
-chisq.test(x = observed_freq_multiple, p = prop_of_rt, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_multiple, p = prop_of_rt, simulate.p.value = FALSE)
-
 chisq.test(x = observed_freq_lentic, p = prop_of_rt)
 chisq.test(x = observed_freq_intertidal, p = prop_of_rt)
 chisq.test(x = observed_freq_desert, p = prop_of_rt)
 chisq.test(x = observed_freq_coastal, p = prop_of_rt)
 chisq.test(x = observed_freq_shrubland, p = prop_of_rt)
 ocean_chi <- chisq.test(x = observed_freq_oceanic, p = prop_of_rt)
+ocean_chi
 ocean_chi$observed
 ocean_chi$expected
 

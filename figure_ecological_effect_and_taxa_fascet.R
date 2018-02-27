@@ -27,8 +27,9 @@ gg
 gg <- gg + facet_wrap(~invasivespeciestaxa) # Fascet by taxa
 gg <- gg + scale_fill_manual(values = colorRampPalette(solarized_pal()(8))(17)) # apply 16 different colors
 gg
+gg <- gg + theme("tufte")
 gg <- gg + ylab("Frequency")
-gg <- gg + xlab("Impact Type")
+gg <- gg + xlab("Ecological Effect")
 gg <- gg + guides(fill=FALSE) # remove legent
 gg
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
@@ -37,7 +38,7 @@ gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  strip.text = element_text(size=12)) # Change axis title size
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/impact_type_fascet_by_taxa.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_ecological_effect_fascet_by_taxa.pdf")
 gg
 dev.off()
 dev.off()

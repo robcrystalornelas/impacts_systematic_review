@@ -26,22 +26,11 @@ dim(counted_broad_taxa)
 counted_broad_taxa
 
 ## MAKE FIGURES ####
-bp <- ggplot(counted_unique_species, aes(x=invasivespeciestaxa,y=n, fill=invasivespeciestaxa)) +
-  geom_bar(width = 1, stat = "identity")
-bp
-
-pie <- bp + coord_polar(theta = "x")
-pie
-
-pie_colors <- pie +
-  theme_minimal()
-pie_colors
-
 lbls <- counted_unique_species$invasivespeciestaxa
 pie <- pie(counted_unique_species$n,labels = lbls, col=rainbow(length(lbls)), init.angle=-30)
 
 # Save figure
-pdf(file="~/Desktop/Impacts Systematic Review/figures/taxaonomy_pie_chart.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxaonomy_pie_chart.pdf")
 pie(counted_unique_species$n,labels = lbls, col=rainbow(length(lbls)), init.angle=-30)
 dev.off()
 dev.off()

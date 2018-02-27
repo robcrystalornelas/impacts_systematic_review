@@ -11,7 +11,7 @@ impacts_model_species_and_bio <- dplyr::select(raw_data, invasivespecies, impact
 head(impacts_model_species_and_bio)
 
 # Count of top 10 species
-species_counted <- as.data.frame(count(raw_data, invasivespecies))
+species_counted <- as.data.frame(dplyr::count(raw_data, invasivespecies))
 species_ordered <- arrange(species_counted, desc(n))
 top_ten_species <- slice(species_ordered, 1:10)
 top_ten_species <-as.data.frame(top_ten_species)
@@ -42,9 +42,7 @@ gg <- gg + theme(legend.title=element_blank()) # Remove legend title
 gg
 
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_top_ten_and_bio_level_stacked_barplot.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_top_ten_and_bio_level_stacked_barplot.pdf")
 gg
 dev.off()
 dev.off()
-
-# Fasceted by impact type

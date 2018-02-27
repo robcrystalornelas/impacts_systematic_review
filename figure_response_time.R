@@ -7,7 +7,7 @@ library(ggplot2)
 library(ggthemes)
 
 ## ORGANIZE DATA ####
-response_time_data <- select(raw_data, publicationyear, ecosystem,impacttype,firstyeardetected,firstyearatsite,yearbegins,yearends,yearbinned)
+response_time_data <- dplyr::select(raw_data, publicationyear, ecosystem,impacttype,firstyeardetected,firstyearatsite,yearbegins,yearends,yearbinned)
 head(response_time_data)
 
 # Create new column to show response time (yearbegins - firstyeardetected)
@@ -27,7 +27,7 @@ response_time_data
 response_time_data$responsetimebinned <- cut(response_time_data$responsetime, breaks = c(0,1,5,10,500), labels = c("Rapid (0-1 years)","1.1-5 years","5.1-10 years","Slow (10.1+)"))
 
 # Over 2000 NAs, so remove those
-response_time_data_cc <- select(response_time_data, publicationyear,responsetimebinned)
+response_time_data_cc <- dplyr::select(response_time_data, publicationyear,responsetimebinned)
 head(response_time_data_cc)
 response_time_data_cc <- response_time_data_cc[complete.cases(response_time_data_cc$responsetimebinned), ]
 head(response_time_data_cc)
@@ -44,7 +44,7 @@ gg <- gg + xlab("Response Time")
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.title=element_text(size=14,face="bold"))
 gg
-pdf(file="~/Desktop/Impacts Systematic Review/figures/responsetime_barplot.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_responsetime_barplot.pdf")
 gg
 dev.off()
 dev.off()

@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-raw_with_iso <- read.csv("/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO.csv", header = T)
+raw_with_iso <- read.csv("/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO_3.csv", header = T)
 
 ## LOAD PACKAGES ####
 library(maptools)
@@ -34,14 +34,14 @@ head(cc_iso_by_case)
 new_iso_list <- as.character(cc_iso_by_case$isocountrycode)
 new_iso_list <- str_pad(new_iso_list, 3, pad = "0")
 head(new_iso_list)
-new_iso_list <- as.integer(new_iso_list)
-head(new_iso_list)
+#new_iso_list <- as.integer(new_iso_list)
+# head(new_iso_list)
 
 ####
 cc_iso_by_case$isocountrycode <- new_iso_list
 head(cc_iso_by_case)
 
-count_of_outage <- count(cc_iso_by_case, isocountrycode) # get count of how many studies per country
+count_of_outage <- dplyr::count(cc_iso_by_case, isocountrycode) # get count of how many studies per country
 outage_df <- as.data.frame(count_of_outage)
 head(outage_df)
 outage_df
@@ -51,17 +51,18 @@ outage_df$count <- as.numeric(outage_df$count)
 
 # Custom breaks for data
 outage_df$out <- cut(outage_df$count,
-                     breaks=c(0, 90, 180, 270, 360, 450, 540, 630, 820),
+                     breaks=c(0, 90, 180, 270, 360, 450, 540, 630, 1000),
                      labels=c("0-90", "91-180", "181-270", "271-360",
                               "361-450", "451-540", "541-630",
-                              "631-812"))
+                              "631-1000"))
+outage_df
 
 outage_df$out_small_breaks <- cut(outage_df$count,
-                                  breaks=c(0, 20, 40, 60, 80, 100, 120, 140, 820),
+                                  breaks=c(0, 20, 40, 60, 80, 100, 120, 140, 1000),
                                   labels=c("1-20", "21-40", "41-60", "61-80",
                                            "81-100", "101-120", "121-140",
                                            "121+"))
-
+outage_df
 
 ## MAKE FIGURES ####
 gg <- ggplot()
@@ -83,7 +84,7 @@ gg <- gg + theme(plot.title=element_text(size=16))
 gg <- gg + theme(legend.position="right")
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/map_of_case_studies.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_map_of_case_studies.pdf")
 gg
 dev.off()
 dev.off()

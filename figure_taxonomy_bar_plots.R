@@ -40,7 +40,7 @@ gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.ticks = element_blank())
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/taxonomy_all_species_barplot.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_all_species_barplot.pdf")
 plot(gg)
 dev.off()
 dev.off()
