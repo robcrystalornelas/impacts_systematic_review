@@ -221,7 +221,9 @@ chi_amphib<-chisq.test(x = observed_freq_ampihb, p = prop_of_impact_type, simula
 chi_amphib
 chi_amphib$observed
 chi_amphib$expected
-chisq.test(x = observed_freq_aquaticplant, p = prop_of_impact_type, simulate.p.value = TRUE)
+chi_aquatic <- chisq.test(x = observed_freq_aquaticplant, p = prop_of_impact_type, simulate.p.value = TRUE)
+chi_aquatic$expected
+chi_aquatic$observed
 chisq.test(x = observed_freq_bird, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_crust, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_fish, p = prop_of_impact_type, simulate.p.value = TRUE)

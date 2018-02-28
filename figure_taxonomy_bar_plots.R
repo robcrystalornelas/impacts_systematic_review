@@ -16,7 +16,7 @@ head(species_ordered)
 species_ordered
 species_ordered <- dplyr::rename(species_ordered, count = n)
 species_ordered$invasivespecies <- factor(species_ordered$invasivespecies, levels = species_ordered$invasivespecies[order(-species_ordered$count)])
-
+dim(species_counted)
 # Replace all invasive species names with a unique numerical identified
 # levels(species_ordered$invasivespecies) <- 1:575
 # head(species_ordered)

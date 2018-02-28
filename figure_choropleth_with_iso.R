@@ -26,7 +26,7 @@ head(map)
 # Tune up dataset
 only_isocode_by_case <- dplyr::select(raw_with_iso, country, isocountrycode)
 head(only_isocode_by_case)
-
+length(unique(only_isocode_by_case$country))
 cc_iso_by_case <- only_isocode_by_case[complete.cases(only_isocode_by_case),]
 head(cc_iso_by_case)
 
@@ -48,6 +48,11 @@ outage_df
 sum(outage_df$n)
 colnames(outage_df) <- c("id", "count") # rename columns to work well with ggplot
 outage_df$count <- as.numeric(outage_df$count)
+
+head(outage_df)
+countries_ordered <- arrange(outage_df, desc(count))
+head(countries_ordered)
+countries_ordered
 
 # Custom breaks for data
 outage_df$out <- cut(outage_df$count,
