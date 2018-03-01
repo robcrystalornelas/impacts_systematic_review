@@ -15,7 +15,7 @@ head(species_and_year)
 
 selected <- c("Aporrectodea longa","cane toad","crested wheatgrass", "red swamp crayfish") # these are focal species
 counted_species_and_year <- species_and_year[species_and_year$invasivespecies %in% selected,] %>%
-  count()
+  plyr::count()
 counted_species_and_year
 
 # Trying to make every combo of species and year represented
@@ -55,7 +55,7 @@ head(species_and_year)
 
 selected <- c("cane toad","crested wheatgrass", "red swamp crayfish","zebra mussel") # these are focal species
 counted_species_and_year <- species_and_year[species_and_year$invasivespecies %in% selected,] %>%
-  count()
+  plyr::count()
 counted_species_and_year
 
 # Trying to make every combo of species and year represented
@@ -67,9 +67,17 @@ counted_species_and_year_final[is.na(counted_species_and_year_final)] <- 0
 # Make the figure
 gg <- ggplot(counted_species_and_year_final, aes(x=yearbinned, y=freq, group = invasivespecies, colour = invasivespecies)) +
   geom_line(size = 2) +
-  scale_colour_brewer(type = "div")
+  scale_colour_brewer(type = "div") +
+  theme(legend.title=element_blank(),
+        axis.text.x = element_text(size=15),
+        axis.text.y = element_text(size=15),
+        axis.title = element_text(size=20)) +
+  xlab("Frequency") +
+  ylab("Study Years")
 gg
+
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_binned_time_series.pdf")
+
 gg
 dev.off()
 dev.off()

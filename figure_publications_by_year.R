@@ -25,8 +25,11 @@ gg <- ggplot(distinct_code_and_publication_year, aes(publicationyear)) +
 gg <- gg + theme_tufte()
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Publication Year")
-gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
-        axis.title=element_text(size=14,face="bold")) # Change axis title size
+# gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
+#         axis.title=element_text(size=14,face="bold")) # Change axis title size
+gg <- gg + theme(axis.text.x = element_text(size=15),
+      axis.text.y = element_text(size=15),
+      axis.title = element_text(size=20))
 gg
 pdf(file="~/Desktop/Impacts Systematic Review/figures/publications_by_year.pdf")
 gg
