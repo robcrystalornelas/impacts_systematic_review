@@ -47,8 +47,34 @@ gg
 dev.off()
 dev.off()
 
-# Fasceted plot reordered
-## Try for different colors
+## Using subplot of top 8 taxa (for graphic purposes)
+## Add in algae and amphibs if we don't mind top 10
+head(impact_and_taxa_reordered)
 
+selected <- c("amphibians and reptiles","crustacean","fish","grasses","herbaceous plant","insect","mammal","molluscs","tree")
+subset_of_impact_and_taxa <- impact_and_taxa_reordered[impact_and_taxa_reordered$invasivespeciestaxa %in% selected,]
+dim(subset_of_impact_and_taxa)
 
+# Make the subset plot
 
+gg <- ggplot(subset_of_impact_and_taxa) +
+  geom_bar(aes(x= impacttype, stat="bin", fill = invasivespeciestaxa)) # start up the plot
+gg
+gg <- gg + facet_wrap(~invasivespeciestaxa) # Fascet by taxa
+gg <- gg + scale_fill_manual(values = colorRampPalette(solarized_pal()(8))(10)) # apply 16 different colors
+gg
+gg <- gg + theme("tufte")
+gg <- gg + ylab("Frequency")
+gg <- gg + xlab("Ecological Effect")
+gg <- gg + guides(fill=FALSE) # remove legent
+gg
+gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
+                 axis.title=element_text(size=14,face="bold"),
+                 axis.text.x = element_text(angle = 90, hjust = 1),
+                 strip.text = element_text(size=12)) # Change axis title size
+gg
+
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_ecological_effect_fascet_by_taxa.pdf")
+gg
+dev.off()
+dev.off()

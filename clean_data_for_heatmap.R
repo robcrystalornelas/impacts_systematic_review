@@ -1,7 +1,9 @@
 library(tidyr)
 library(plyr)
 library(knitr)
-impacts_raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Crystal-Ornelas_et_al_SR_v17.csv", header=TRUE, na.strings = "")
+library(tibble)
+library(dplyr)
+impacts_raw_data <- read.csv("~/Desktop/Impacts Systematic Review/Crystal-Ornelas_et_al_SR_v18.csv", header=TRUE, na.strings = "")
 head(impacts_raw_data)
 
 # Add new column with years binned
