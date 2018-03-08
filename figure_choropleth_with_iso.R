@@ -53,7 +53,7 @@ head(outage_df)
 countries_ordered <- arrange(outage_df, desc(count))
 head(countries_ordered)
 countries_ordered
-
+dim(countries_ordered)
 # Custom breaks for data
 outage_df$out <- cut(outage_df$count,
                      breaks=c(0, 90, 180, 270, 360, 450, 540, 630, 1000),

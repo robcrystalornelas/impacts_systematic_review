@@ -35,10 +35,10 @@ gg <- gg + theme_tufte()
 gg
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Invasive Species")
-gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
-                 axis.title=element_text(size=14,face="bold"))
-gg <- gg + theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 12))
 gg <- gg + theme(legend.title=element_blank()) # Remove legend title
+gg <- gg + theme(axis.text.x = element_text(size=15, angle = 90, hjust = 1, vjust = .5),
+                 axis.text.y = element_text(size=15),
+                 axis.title = element_text(size=20))
 gg
 
 

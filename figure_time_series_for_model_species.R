@@ -72,8 +72,8 @@ gg <- ggplot(counted_species_and_year_final, aes(x=yearbinned, y=freq, group = i
         axis.text.x = element_text(size=15),
         axis.text.y = element_text(size=15),
         axis.title = element_text(size=20)) +
-  xlab("Frequency") +
-  ylab("Study Years")
+  xlab("Study Length") +
+  ylab("Frequency")
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_binned_time_series.pdf")

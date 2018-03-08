@@ -20,7 +20,7 @@ gg
 gg <- gg + theme_tufte()
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Ecological Effect")
-gg <- gg + theme(axis.text.x = element_text(size=15, angle = 45, hjust = 1),
+gg <- gg + theme(axis.text.x = element_text(size=15, angle = 90, hjust = 1, vjust = .5),
                  axis.text.y = element_text(size=15),
                  axis.title = element_text(size=20))
 gg

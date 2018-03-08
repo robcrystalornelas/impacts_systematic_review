@@ -38,7 +38,7 @@ gg <- gg + guides(fill=FALSE) # remove legent
 gg
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.title=element_text(size=14,face="bold"),
-                 axis.text.x = element_text(angle = 90, hjust = 1),
+                 axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
                  strip.text = element_text(size=12)) # Change axis title size
 gg
 
@@ -70,7 +70,7 @@ gg <- gg + guides(fill=FALSE) # remove legent
 gg
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.title=element_text(size=14,face="bold"),
-                 axis.text.x = element_text(angle = 90, hjust = 1),
+                 axis.text.x = element_text(angle = 90, hjust=1, vjust = 0.5),
                  strip.text = element_text(size=12)) # Change axis title size
 gg
 

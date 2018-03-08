@@ -32,11 +32,14 @@ gg <- ggplot(top_impacts_and_ecosystem_and_yearbinned_complete, aes(x=impacttype
 gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
 gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes
 gg <- gg + coord_equal()
-gg <- gg + labs(x = NULL, y = NULL, title="Impact Type & Ecosystem") # This is the title of the plot
 gg <- gg + theme_tufte(base_family="Helvetica")
-gg <- gg + theme(axis.ticks=element_blank())
-gg <- gg + theme(axis.text.x=element_text(size=12, angle = 45, hjust = 1))
-gg <- gg + theme(axis.text.y=element_text(size=12))
+gg <- gg + ylab("Ecosystem")
+gg <- gg + xlab("Ecological Effect")
+gg <- gg + theme(axis.ticks=element_blank(),
+                 axis.text.x = element_text(size=15, angle = 90, hjust = 1),
+                 axis.text.y = element_text(size=15),
+                 axis.title = element_text(size=20))
+
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_heatmap_ecological_effect_and_ecosystem.pdf")

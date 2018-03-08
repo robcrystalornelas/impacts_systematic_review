@@ -30,8 +30,11 @@ gg <- gg + theme_tufte()
 gg
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Study Length")
-gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
-                 axis.title=element_text(size=14,face="bold"))
+gg <- gg + theme(axis.text.x = element_text(size=15),
+                 axis.text.y = element_text(size=15),
+                 axis.title = element_text(size=20))
+gg
+
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_studylength_barplot.pdf")

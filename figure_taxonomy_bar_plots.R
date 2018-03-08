@@ -37,7 +37,9 @@ gg <- gg + xlab("Invasive Species")
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.title=element_text(size=14,face="bold"),
                  axis.text.x=element_blank(),
-                 axis.ticks = element_blank())
+                 axis.ticks = element_blank(),
+                 strip.text = element_text(size=12)) # Change axis title size
+
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_all_species_barplot.pdf")

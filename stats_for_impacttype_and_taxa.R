@@ -169,11 +169,14 @@ chi_amphib<-chisq.test(x = observed_freq_ampihb, p = prop_of_impact_type)
 chi_amphib
 chi_amphib$observed
 chi_amphib$expected
-
 chisq.test(x = observed_freq_crust, p = prop_of_impact_type)
 chisq.test(x = observed_freq_fish, p = prop_of_impact_type)
 chisq.test(x = observed_freq_grass, p = prop_of_impact_type)
-chisq.test(x = observed_freq_herb, p = prop_of_impact_type)
+herb_chi <- chisq.test(x = observed_freq_herb, p = prop_of_impact_type)
+herb_chi
+herb_chi$observed
+herb_chi$expected
+
 chisq.test(x = observed_freq_insect, p = prop_of_impact_type)
 chisq.test(x = observed_freq_mammal, p = prop_of_impact_type)
 moll_chi <- chisq.test(x = observed_freq_moll, p = prop_of_impact_type)

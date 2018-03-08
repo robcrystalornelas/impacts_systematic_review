@@ -18,6 +18,7 @@ labels_unique_species <- as.character(counted_unique_species$invasivespeciestaxa
 dim(counted_unique_species)
 counted_unique_species
 sum(counted_unique_species$n)
+
 # Organize table of broad taxonomic groups
 counted_broad_taxa <- as.data.frame(dplyr::count(raw_data, invasivespeciestaxa)) 
 order(counted_broad_taxa$n)
