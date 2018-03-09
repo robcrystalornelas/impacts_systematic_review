@@ -87,7 +87,7 @@ head(species_counted_second_six)
 species_counted_second_six
 species_counted_second_six_top_ten <- slice(species_counted_second_six, 1:10)
 species_counted_second_six_top_ten <-as.data.frame(species_counted_second_six_top_ten)
-species_counted_second_six_top_ten <- rename(species_counted_second_six_top_ten, count = n)
+species_counted_second_six_top_ten <- dplyr::rename(species_counted_second_six_top_ten, count = n)
 species_counted_second_six_top_ten$invasivespecies <- factor(species_counted_second_six_top_ten$invasivespecies, levels = species_counted_second_six_top_ten$invasivespecies[order(-species_counted_second_six_top_ten$count)])
 head(species_counted_second_six_top_ten)
 
@@ -98,7 +98,7 @@ head(species_counted_third_six)
 species_counted_third_six
 species_counted_third_six_top_ten <- slice(species_counted_third_six, 1:10)
 species_counted_third_six_top_ten <-as.data.frame(species_counted_third_six_top_ten)
-species_counted_third_six_top_ten <- rename(species_counted_third_six_top_ten, count = n)
+species_counted_third_six_top_ten <- dplyr::rename(species_counted_third_six_top_ten, count = n)
 species_counted_third_six_top_ten$invasivespecies <- factor(species_counted_third_six_top_ten$invasivespecies, levels = species_counted_third_six_top_ten$invasivespecies[order(-species_counted_third_six_top_ten$count)])
 head(species_counted_third_six_top_ten)
 
@@ -113,7 +113,7 @@ gg_first <- gg_first + ylab("Frequency")
 gg_first <- gg_first + xlab("Invasive Species")
 gg_first <- gg_first + theme(axis.text=element_text(size=12), # Change tick mark label size
                  axis.title=element_text(size=14,face="bold"))
-gg_first <- gg_first + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
+gg_first <- gg_first + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5, size = 12))
 gg_first
 
 gg_second <- ggplot(data=species_counted_second_six_top_ten, aes(x=invasivespecies, y=count))
@@ -127,7 +127,7 @@ gg_second <- gg_second + ylab("Frequency")
 gg_second <- gg_second + xlab("Invasive Species")
 gg_second <- gg_second + theme(axis.text=element_text(size=12), # Change tick mark label size
                              axis.title=element_text(size=14,face="bold"))
-gg_second <- gg_second + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
+gg_second <- gg_second + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5, size = 12))
 gg_second
 
 
@@ -142,7 +142,7 @@ gg_third <- gg_third + ylab("Frequency")
 gg_third <- gg_third + xlab("Invasive Species")
 gg_third <- gg_third + theme(axis.text=element_text(size=12), # Change tick mark label size
                                axis.title=element_text(size=14,face="bold"))
-gg_third <- gg_third + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12))
+gg_third <- gg_third + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5, size = 12))
 gg_third
 
 # Arrange on one page
