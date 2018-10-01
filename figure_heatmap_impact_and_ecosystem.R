@@ -5,13 +5,9 @@ source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/cl
 ## LOAD PACKAGES ####
 library(ggplot2)
 library(dplyr)
-library(data.table)  # faster fread() and better weekdays()
 library(dplyr)       # consistent data.frame operations
 library(purrr)       # consistent & safe list/vector munging
 library(tidyr)       # consistent data.frame cleaning
-library(lubridate)   # date manipulation
-library(countrycode) # turn country codes into pretty names
-library(ggplot2)     # base plots are for Coursera professors
 library(scales)      # pairs nicely with ggplot2 for plot label formatting
 library(gridExtra)   # a helper for arranging individual ggplot objects
 library(ggthemes)    # has a clean theme for ggplot2

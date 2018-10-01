@@ -66,14 +66,14 @@ counted_species_and_year_final[is.na(counted_species_and_year_final)] <- 0
 
 # Make the figure
 gg <- ggplot(counted_species_and_year_final, aes(x=yearbinned, y=freq, group = invasivespecies, colour = invasivespecies)) +
-  geom_line(size = 2) +
-  scale_colour_brewer(type = "div") +
-  theme(legend.title=element_blank(),
-        axis.text.x = element_text(size=15),
-        axis.text.y = element_text(size=15),
-        axis.title = element_text(size=20)) +
-  xlab("Study Length") +
-  ylab("Frequency")
+  geom_line(size = 2.5) + scale_colour_brewer(type = "div")
+gg <- gg + theme_tufte()
+gg <- gg + theme(axis.text.x = element_text(size=15, hjust = 1, vjust = .5),
+                   axis.text.y = element_text(size=15),
+                   axis.title = element_text(size=20))
+gg <- gg + xlab("Years") + ylab("Frequency")
+gg <- gg + theme(legend.title=element_blank()) # remove legend title
+gg <- gg + theme(legend.text = element_text(size = 16)) # make species names bigger
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_binned_time_series.pdf")

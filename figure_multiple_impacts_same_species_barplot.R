@@ -4,6 +4,8 @@ source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/cl
 ## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
+library(ggthemes)
+library(viridis)
 
 ## ORGANIZE DATA ####
 head(raw_data)
@@ -30,17 +32,18 @@ subset_of_top_ten
 gg <- ggplot(data=subset_of_top_ten, aes(x=reorder(invasivespecies,invasivespecies, function(x)-length(x)), fill = factor(impact_category_lockwood)))
 gg <- gg + geom_bar(stat="count")
 gg
-gg <- gg + scale_fill_brewer(palette="Set2")
+gg <- gg + scale_fill_viridis(discrete = TRUE, option = "magma")
 gg <- gg + theme_tufte()
 gg
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Invasive Species")
-gg <- gg + theme(legend.title=element_blank()) # Remove legend title
+gg <- gg + theme() # Remove legend title
 gg <- gg + theme(axis.text.x = element_text(size=15, angle = 90, hjust = 1, vjust = .5),
                  axis.text.y = element_text(size=15),
-                 axis.title = element_text(size=20))
+                 axis.title = element_text(size=20),
+                 legend.text = element_text(size = 16), # make entries in the legend larger
+                 legend.title=element_blank()) # Remove legend title
 gg
-
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_top_ten_and_bio_level_stacked_barplot.pdf")
 gg

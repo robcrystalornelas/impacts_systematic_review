@@ -136,7 +136,7 @@ abundance_chi$expected
 t_temporal_and_impact$studylengthbinned
 behavior_chi <- chisq.test(x = observed_freq_behavior_t, p = expected_studylength)
 behavior_chi
-behavior_chi$observed
+sum(behavior_chi$observed)
 behavior_chi$expected
 diversity_chi<-chisq.test(x = observed_freq_diversity_t, p = expected_studylength)
 diversity_chi
@@ -146,11 +146,15 @@ diversity_chi$expected
 chisq.test(x = observed_freq_fitness_t, p = expected_studylength)
 chisq.test(x = observed_freq_growth_t, p = expected_studylength)
 chisq.test(x = observed_freq_habitatchange_t, p = expected_studylength)
-chisq.test(x = observed_freq_hybrid_t, p = expected_studylength)
+hybrid_chi <- chisq.test(x = observed_freq_hybrid_t, p = expected_studylength)
+hybrid_chi
+sum(hybrid_chi$observed)
+
 chisq.test(x = observed_freq_indirect_t, p = expected_studylength)
 nutrient_chi <- chisq.test(x = observed_freq_nutrient_t, p = expected_studylength)
 nutrient_chi
-nutrient_chi$observed
+sum(nutrient_chi$observed)
 nutrient_chi$expected
+
 chisq.test(x = observed_freq_other_t, p = expected_studylength)
 chisq.test(x = observed_freq_production_t, p = expected_studylength)

@@ -30,16 +30,15 @@ top_ten_species$invasivespecies <- factor(top_ten_species$invasivespecies, level
 species_ordered
 # Figure for ALL invasive species
 gg <- ggplot(data = species_ordered, aes(x=invasivespecies, y = count))
-gg <- gg + geom_bar(stat="identity", fill = "#FF6666")
+gg <- gg + geom_bar(stat="identity", fill = "#239B56")
 gg <- gg + theme_tufte()
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Invasive Species")
-gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
-                 axis.title=element_text(size=14,face="bold"),
+gg <- gg + theme(axis.text=element_text(size=15), # Change tick mark label size
+                 axis.title=element_text(size=20),
                  axis.text.x=element_blank(),
                  axis.ticks = element_blank(),
                  strip.text = element_text(size=12)) # Change axis title size
-
 gg
 
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_all_species_barplot.pdf")

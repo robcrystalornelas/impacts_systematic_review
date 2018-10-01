@@ -146,7 +146,10 @@ fungi_chi
 fungi_chi$observed
 fungi_chi$expected
 chisq.test(x = observed_freq_grass, p = prop_of_impact_type, simulate.p.value = TRUE)
-chisq.test(x = observed_freq_herb, p = prop_of_impact_type, simulate.p.value = TRUE)
+
+chisq.test(x = observed_freq_herb, p = prop_of_impact_type, simulate.p.value = FALSE)
+chi_herb <- chisq.test(x = observed_freq_herb, p = prop_of_impact_type, simulate.p.value = FALSE)
+chi_herb$observed
 chisq.test(x = observed_freq_insect, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_mammal, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_marineinvert, p = prop_of_impact_type, simulate.p.value = TRUE)

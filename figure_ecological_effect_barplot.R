@@ -20,12 +20,14 @@ gg
 gg <- gg + theme_tufte()
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Ecological Effect")
-gg <- gg + theme(axis.text.x = element_text(size=15, angle = 90, hjust = 1, vjust = .5),
-                 axis.text.y = element_text(size=15),
-                 axis.title = element_text(size=20))
+gg <- gg + theme(axis.text=element_text(size=15), # Change tick mark label size
+      axis.title=element_text(size=14,face="bold"),
+      axis.text.x = element_text(angle = 90, hjust=1, vjust = 0.5),
+      strip.text = element_text(size=15)) # Change axis title size
+
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/ecological_effect_barplot.pdf")
+pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_ecological_effect_barplot.pdf")
 gg
 dev.off()
 dev.off()
