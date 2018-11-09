@@ -21,7 +21,7 @@ all_impacts_and_ecosystems_complete <-
   all_impacts_and_ecosystems %>%
   filter(ecosystem != "NA") %>%
   droplevels() %>%
-  complete(impacttype, ecosystem, fill=list(n=NA)) # complete heatmap so that all combinations have either numerical value or NA
+  tidyr::complete(impacttype, ecosystem, fill=list(n=NA)) # complete heatmap so that all combinations have either numerical value or NA
 
 # Now create heatmap
 gg <- ggplot(all_impacts_and_ecosystems_complete, aes(x=impacttype, y=ecosystem, fill = n))
@@ -30,8 +30,9 @@ gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comm
 gg <- gg + coord_equal()
 gg <- gg + theme_tufte(base_family="Helvetica")
 gg <- gg + theme(axis.ticks=element_blank())
-gg <- gg + theme(axis.text.x=element_text(size=12, angle = 90, hjust = 1))
-gg <- gg + theme(axis.text.y=element_text(size=12))
+gg <- gg + theme(axis.text.x=element_text(size=18, angle = 90, hjust = 1))
+gg <- gg + theme(axis.text.y=element_text(size=18))
+gg <- gg + theme(axis.title = element_text(size=20))
 gg <- gg + ylab("Ecosystem")
 gg <- gg + xlab("Ecological Effect")
 gg

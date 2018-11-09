@@ -20,10 +20,10 @@ gg
 gg <- gg + theme_tufte()
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Ecological Effect")
-gg <- gg + theme(axis.text=element_text(size=15), # Change tick mark label size
-      axis.title=element_text(size=14,face="bold"),
+gg <- gg + theme(axis.text=element_text(size=20), # Change tick mark label size
+      axis.title=element_text(size=18,face="bold"),
       axis.text.x = element_text(angle = 90, hjust=1, vjust = 0.5),
-      strip.text = element_text(size=15)) # Change axis title size
+      strip.text = element_text(size=20)) # Change axis title size
 
 gg
 

@@ -20,7 +20,7 @@ library(knitr)
 top_impacts_and_ecosystem_and_yearbinned_count <- dplyr::count(top_impacts_and_ecosystem_t, impacttype, ecosystem, yearbinned) # count function has to come BEFORE complete
 head(top_impacts_and_ecosystem_and_yearbinned_count)
 
-top_impacts_and_ecosystem_and_yearbinned_complete <- complete(top_impacts_and_ecosystem_and_yearbinned_count, impacttype, ecosystem, yearbinned,fill=list(n=NA))
+top_impacts_and_ecosystem_and_yearbinned_complete <- tidyr::complete(top_impacts_and_ecosystem_and_yearbinned_count, impacttype, ecosystem, yearbinned,fill=list(n=NA))
 top_impacts_and_ecosystem_and_yearbinned_complete
 
 ## MAKE PLOT non-facet for select categories####

@@ -13,7 +13,7 @@ impacts_raw_data$yearbinned <- cut(impacts_raw_data$publicationyear, breaks = c(
 # Convert data.frame to table
 impacts_t <- tbl_df(impacts_raw_data)
 head(impacts_t)
-kable(head(impacts_t))
+knitr::kable(head(impacts_t))
 
 # Subset ecosystem and impact type
 
@@ -45,5 +45,5 @@ top_impacts_and_ecosystem_t <- tbl_df(top_impacts_and_ecosystem)
 top_impacts_and_ecosystem_count <- dplyr::count(top_impacts_and_ecosystem_t, impacttype, ecosystem) # count function has to come BEFORE complete
 
 # Run complete function
-top_impacts_and_ecosystem_complete <- complete(top_impacts_and_ecosystem_count, impacttype, ecosystem, fill=list(n=NA))
+top_impacts_and_ecosystem_complete <- tidyr::complete(top_impacts_and_ecosystem_count, impacttype, ecosystem, fill=list(n=NA))
 

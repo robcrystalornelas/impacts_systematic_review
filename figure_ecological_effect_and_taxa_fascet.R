@@ -29,9 +29,9 @@ gg <- ggplot(impact_and_taxa_reordered) +
   geom_bar(aes(x= impacttype, stat="bin", fill = invasivespeciestaxa)) # start up the plot
 gg
 gg <- gg + facet_wrap(~invasivespeciestaxa) # Fascet by taxa
-gg <- gg + scale_fill_manual(values = colorRampPalette(solarized_pal()(8))(17)) # apply 16 different colors
+gg <- gg + scale_fill_manual(values = colorRampPalette(solarized_pal()(8))(18)) # apply 16 different colors
 gg
-gg <- gg + theme("tufte")
+# gg <- gg + theme("tufte")
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Ecological Effect")
 gg <- gg + guides(fill=FALSE) # remove legent

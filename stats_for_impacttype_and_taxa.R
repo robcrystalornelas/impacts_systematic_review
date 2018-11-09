@@ -22,6 +22,7 @@ full_chi
 full_chi$expected
 
 counts_of_impact_and_taxa <- plyr::count(impact_and_taxa)
+
 ########################################################
 ############### Chi-Squared w/ proportions
 ##########################################
