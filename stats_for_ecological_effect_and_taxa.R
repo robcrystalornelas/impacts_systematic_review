@@ -49,7 +49,6 @@ setDT(counted_unique_species)[, Prop := n/sum(n)]
 expected_taxa_prop <- counted_unique_species$Prop
 expected_taxa_prop
 expected_taxa_count <- counted_unique_species$n
-# 
 # # Proportions of taxa WITHIN fitness
 # # First, make sure all combinations of impact and taxa are complete, so we can get real proportions
 # table_impacts_and_taxa
@@ -69,8 +68,7 @@ prop_of_impact_type
 counts_of_taxa <- plyr::count(impact_and_taxa$invasivespeciestaxa)
 
 counts_of_taxa
-# exclude any less than 50, aquatic plant, bacteria, bird, forest pathogen, fungi, terrestrial invter
-
+# exclude any less than 50, aquatic plant, bacteria, bird, forest pathogen, fungi, terrestrial invter, moss
 subset_of_algae <- filter(complete_table_impacts_and_taxa, invasivespeciestaxa == "algae and seaweed")
 subset_of_algae
 observed_freq_algae <- subset_of_algae$freq
@@ -80,6 +78,11 @@ subset_of_bac <- filter(complete_table_impacts_and_taxa, invasivespeciestaxa == 
 subset_of_bac
 observed_freq_bac <- subset_of_bac$freq
 observed_freq_bac
+
+subset_of_moss <- filter(complete_table_impacts_and_taxa, invasivespeciestaxa == "moss")
+subset_of_moss
+observed_freq_moss <- subset_of_moss$freq
+observed_freq_moss
 
 subset_of_amphib <- filter(complete_table_impacts_and_taxa, invasivespeciestaxa == "amphibians and reptiles")
 observed_freq_ampihb <- subset_of_amphib$freq
@@ -131,15 +134,18 @@ algae_chi <- chisq.test(x = observed_freq_algae, p = prop_of_impact_type, simula
 algae_chi
 algae_chi$observed
 algae_chi$expected
+
 chi_amphib<-chisq.test(x = observed_freq_ampihb, p = prop_of_impact_type, simulate.p.value = TRUE)
 chi_amphib
 chi_amphib$observed
 chi_amphib$expected
+
 chi_aquatic <- chisq.test(x = observed_freq_aquaticplant, p = prop_of_impact_type, simulate.p.value = TRUE)
-chi_aquatic$expected
+chi_aquatic
 chi_aquatic$observed
-chisq.test(x = observed_freq_bac, p = prop_of_impact_type, simulate.p.value = TRUE)
+chi_aquatic$expected
 chisq.test(x = observed_freq_bird, p = prop_of_impact_type, simulate.p.value = TRUE)
+chisq.test(x = observed_freq_bac, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_crust, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_fish, p = prop_of_impact_type, simulate.p.value = TRUE)
 fungi_chi <- chisq.test(x = observed_freq_fungi, p = prop_of_impact_type, simulate.p.value = TRUE)
@@ -147,21 +153,26 @@ fungi_chi
 fungi_chi$observed
 fungi_chi$expected
 chisq.test(x = observed_freq_grass, p = prop_of_impact_type, simulate.p.value = TRUE)
-
 chisq.test(x = observed_freq_herb, p = prop_of_impact_type, simulate.p.value = FALSE)
 chi_herb <- chisq.test(x = observed_freq_herb, p = prop_of_impact_type, simulate.p.value = FALSE)
 chi_herb$observed
+
 chisq.test(x = observed_freq_insect, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_mammal, p = prop_of_impact_type, simulate.p.value = TRUE)
-chisq.test(x = observed_freq_marineinvert, p = prop_of_impact_type, simulate.p.value = TRUE)
+marine_chi <- chisq.test(x = observed_freq_marineinvert, p = prop_of_impact_type, simulate.p.value = TRUE)
+marine_chi
+marine_chi$observed
+marine_chi$expected
+
 moll_chi <- chisq.test(x = observed_freq_moll, p = prop_of_impact_type, simulate.p.value = TRUE)
 moll_chi
 moll_chi$observed
 moll_chi$expected
+
+chisq.test(x = observed_freq_moss, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_terrestrialinvert, p = prop_of_impact_type, simulate.p.value = TRUE)
 chisq.test(x = observed_freq_tree, p = prop_of_impact_type, simulate.p.value = TRUE)
-
-
+chisq.test(x = observed_freq_forest, p = prop_of_impact_type, simulate.p.value = TRUE)
 
 ## Subset of 10
 algae_chi <- chisq.test(x = observed_freq_algae, p = prop_of_impact_type)

@@ -10,6 +10,7 @@ library(ggthemes)
 ## ORGANIZE DATA ####
 impact_and_taxa <- dplyr::select(raw_data, impacttype, invasivespeciestaxa)
 head(impact_and_taxa)
+dim(impact_and_taxa)
 counted_impacts <- as.data.frame(dplyr::count(raw_data, impacttype)) 
 counted_impacts
 
