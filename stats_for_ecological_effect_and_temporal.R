@@ -3,6 +3,7 @@ library(dplyr)
 library(ggthemes)
 library(broom)
 library(MASS)
+
 ## READ IN DATA ####
 source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
 
@@ -154,6 +155,7 @@ chisq.test(x = observed_freq_indirect_t, p = expected_studylength)
 nutrient_chi <- chisq.test(x = observed_freq_nutrient_t, p = expected_studylength)
 nutrient_chi
 sum(nutrient_chi$observed)
+nutrient_chi$observed
 nutrient_chi$expected
 
 chisq.test(x = observed_freq_other_t, p = expected_studylength)

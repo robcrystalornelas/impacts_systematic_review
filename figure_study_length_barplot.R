@@ -20,9 +20,7 @@ temporal_raw # check to make sure all numbers remained
 temporal_raw$studylengthbinned <- cut(temporal_raw$studylength, breaks = c(0,1,3,10,250), labels = c("0-1","1.1-3","3.1-10",">10"))
 head(temporal_raw)
 
-## MAKE FIGURES ####
-
-# Overall Study Length
+## MAKE FIGURE ####
 gg <- ggplot(data=temporal_raw, aes(x=studylengthbinned))
 gg <- gg + geom_bar(stat="count", fill = "#fec44f")
 gg
@@ -34,9 +32,6 @@ gg <- gg + theme(axis.text.x = element_text(size=15),
                  axis.text.y = element_text(size=15),
                  axis.title = element_text(size=20))
 gg
-
-gg
-
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_studylength_barplot.pdf")
 gg
 dev.off()
