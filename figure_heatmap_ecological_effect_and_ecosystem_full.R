@@ -23,7 +23,7 @@ all_impacts_and_ecosystems_complete <-
   droplevels() %>%
   tidyr::complete(impacttype, ecosystem, fill=list(n=NA)) # complete heatmap so that all combinations have either numerical value or NA
 
-# Now create heatmap
+# Create heatmap
 gg <- ggplot(all_impacts_and_ecosystems_complete, aes(x=impacttype, y=ecosystem, fill = n))
 gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
 gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes
