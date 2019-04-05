@@ -1,9 +1,11 @@
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
+library(scales)
+library(ggthemes)
 
 ## ORGANIZE DATA ####
 head(raw_data)
@@ -21,6 +23,8 @@ temporal_raw$studylengthbinned <- cut(temporal_raw$studylength, breaks = c(0,1,3
 head(temporal_raw)
 
 ## MAKE FIGURE ####
+count(count(temporal_raw$studylengthbinned))
+      
 gg <- ggplot(data=temporal_raw, aes(x=studylengthbinned))
 gg <- gg + geom_bar(stat="count", fill = "#fec44f")
 gg
@@ -32,6 +36,9 @@ gg <- gg + theme(axis.text.x = element_text(size=15),
                  axis.text.y = element_text(size=15),
                  axis.title = element_text(size=20))
 gg
+gg <- gg + scale_y_continuous(breaks = pretty_breaks(n=7))
+gg
+
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_studylength_barplot.pdf")
 gg
 dev.off()

@@ -5,12 +5,11 @@ source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/cl
 ## LOAD PACKAGES ####
 library(ggplot2)
 library(dplyr)
-library(dplyr)       # consistent data.frame operations
-library(tidyr)       # consistent data.frame cleaning
-library(scales)      # pairs nicely with ggplot2 for plot label formatting
-library(gridExtra)   # a helper for arranging individual ggplot objects
-library(ggthemes)    # has a clean theme for ggplot2
-library(viridis)     # best. color. palette. evar.
+library(dplyr)       
+library(tidyr)       
+library(scales)      # labeling
+library(ggthemes)   
+library(viridis)     # Color palette
 library(knitr)   
 
 ## Make count of all ecosyste and impact combinations

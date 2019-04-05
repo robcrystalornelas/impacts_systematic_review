@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## LOAD PACKAGES ####
 library(plyr)
@@ -28,7 +28,18 @@ gg <- gg + theme(axis.text=element_text(size=20), # Change tick mark label size
 
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_ecological_effect_barplot.pdf")
+## Figure for defense
+gg <- ggplot(impact_and_taxa, aes(x = reorder(impacttype,impacttype, function(x)-length(x))))
+gg <-gg + geom_bar(stat="count", fill = "#1f78b4")
+gg
+gg <- gg + theme_tufte()
+gg <- gg + ylab("Frequency")
+gg <- gg + xlab("Ecological Effect")
+gg <- gg + theme(axis.text=element_text(size=30), # Change tick mark label size
+                 axis.title=element_text(size=25,face="bold"),
+                 axis.text.x = element_text(angle = 90, hjust=1, vjust = 0.5, size = 30),
+                 strip.text = element_text(size=40)) # Change axis title size
+
 gg
 dev.off()
 dev.off()

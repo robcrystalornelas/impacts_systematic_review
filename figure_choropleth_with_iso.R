@@ -17,7 +17,7 @@ library(withr)
 library(stringr)
 
 ## ORGANIZE DATA ####
-# world <- ne_download(scale = 50, type = "countries")
+#world <- ne_download(scale = 50, type = "countries")
 world <- world[!world$ISO_A3 %in% c("ATA"),] # remove antarctica
 world <- spTransform(world, CRS("+proj=wintri"))
 map <- fortify(world, region="ISO_N3")
@@ -69,23 +69,27 @@ outage_df$out_small_breaks <- cut(outage_df$count,
                                            "121+"))
 outage_df
 
+outage_df$out_smallest_break <- cut(outage_df$count,
+                                  breaks=c(0, 20, 40, 60, 80, 100, 200, 750, 1000),
+                                  labels=c("1-20", "21-40", "41-60", "61-80",
+                                           "81-100", "101-200","201-750",
+                                           "751+"))
+outage_df
+
 ## MAKE FIGURES ####
 gg <- ggplot()
 gg <- ggplot(data=map, aes(map_id=id))
-gg <- gg + geom_map(map=map,
-                    aes(x=long, y=lat), color="#0e0e0e", fill="#ffffff", size = 0.05)
-gg <- gg + geom_map(data=outage_df, map=map, aes(fill=out_small_breaks), 
+gg <- gg + geom_map(map=map, aes(x=long, y=lat), color="#0e0e0e", fill="#ffffff", size = 0.05)
+gg <- gg + geom_map(data=outage_df, map=map, aes(fill=out_smallest_break), 
                     colour="#0e0e0e", size=0.05)
 gg # add in our data with random color scheme
-# gg <- gg + scale_fill_viridis(option = "inferno", discrete = TRUE, name="Number of\ncase studies\nper country")
-gg <- gg + scale_fill_brewer(type="seq", palette="RdPu",
-                    name="Number of\ncase studies\nper country") # Better color theme
+gg <- gg + scale_fill_brewer(type="seq", palette="RdPu",name="Number of\ncase studies\nper country") # Better color theme
 gg <- gg + coord_equal(ratio=1) # flatten out map
 gg
 gg <- gg + ggthemes::theme_map() # more sparse theme
 gg <- gg + theme(legend.key = element_blank()) # move legend
 gg
-gg <- gg + theme(plot.title=element_text(size=16))
+gg <- gg + theme(plot.title=element_text(size=40))
 gg <- gg + theme(legend.position="right")
 gg
 
