@@ -1,7 +1,7 @@
 library(ggpubr)
 library(ggthemes)
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## ORGANIZE DATA ####
 impact_and_taxa <- dplyr::select(raw_data, impacttype, invasivespeciestaxa)
@@ -44,7 +44,7 @@ gg_interaction
 
 
 ## Export just the fascet
-pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_ecological_effect_fascet.pdf")
+pdf(file="~/Desktop/ch2_impacts_systematic_review/figures/figure_ecological_effect_fascet.pdf")
 gg_interaction
 dev.off()
 dev.off()

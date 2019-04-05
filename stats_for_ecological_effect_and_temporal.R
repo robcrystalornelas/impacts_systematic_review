@@ -5,7 +5,7 @@ library(broom)
 library(MASS)
 
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
 
 ## CLEAN DATA ####
 head(temporal_raw)
@@ -160,3 +160,4 @@ nutrient_chi$expected
 
 chisq.test(x = observed_freq_other_t, p = expected_studylength)
 chisq.test(x = observed_freq_production_t, p = expected_studylength)
+

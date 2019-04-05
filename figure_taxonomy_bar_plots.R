@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## LOAD PACKAGES ####
 library(dplyr)
@@ -41,7 +41,7 @@ gg <- gg + theme(axis.text=element_text(size=15), # Change tick mark label size
                  strip.text = element_text(size=12)) # Change axis title size
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_all_species_barplot.pdf")
+pdf(file="~/Desktop/ch2_impacts_systematic_review/figures/figure_taxonomy_all_species_barplot.pdf")
 plot(gg)
 dev.off()
 dev.off()

@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-raw_with_iso <- read.csv("/Users/rpecchia/Desktop/Impacts Systematic Review/output/raw_data_with_ISO_3.csv", header = T)
+raw_with_iso <- read.csv("/Users/rpecchia/Desktop/ch2_impacts_systematic_review/output/raw_data_with_ISO_3.csv", header = T)
 
 ## LOAD PACKAGES ####
 library(maptools)

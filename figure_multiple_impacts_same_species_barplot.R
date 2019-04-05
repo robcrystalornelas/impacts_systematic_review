@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## LOAD PACKAGES ####
 library(dplyr)
@@ -45,7 +45,7 @@ gg <- gg + theme(axis.text.x = element_text(size=15, angle = 90, hjust = 1, vjus
                  legend.title=element_blank()) # Remove legend title
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_top_ten_and_bio_level_stacked_barplot.pdf")
+pdf(file="~/Desktop/ch2_impacts_systematic_review/figures/figure_taxonomy_top_ten_and_bio_level_stacked_barplot.pdf")
 gg
 dev.off()
 dev.off()

@@ -8,7 +8,7 @@ library(broom)
 library(data.table)
 
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R") # This tells R to run our entire cleaning script so that we have
 
 ## CLEAN DATA ####
 impact_and_ecosystem <- dplyr::select(raw_data, impacttype, ecosystem)
@@ -154,3 +154,4 @@ urban_chi <- chisq.test(x = observed_freq_urban, p = prop_of_impact_type, simula
 urban_chi
 urban_chi$observed
 urban_chi$expected
+

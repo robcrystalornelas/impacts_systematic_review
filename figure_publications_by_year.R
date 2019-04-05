@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## LOAD PACKAGES ####
 library(ggplot2)
@@ -31,7 +31,7 @@ gg <- gg + theme(axis.text.x = element_text(size=15),
       axis.text.y = element_text(size=15),
       axis.title = element_text(size=20))
 gg
-pdf(file="~/Desktop/Impacts Systematic Review/figures/publications_by_year.pdf")
+pdf(file="~/Desktop/ch2_impacts_systematic_review/figures/publications_by_year.pdf")
 gg
 dev.off()
 dev.off()

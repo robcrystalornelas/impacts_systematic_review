@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 # all of the correct variables in our environment
 
 ## LOAD LIBRARIES ####
@@ -76,7 +76,7 @@ gg <- gg + theme(legend.title=element_blank()) # remove legend title
 gg <- gg + theme(legend.text = element_text(size = 16)) # make species names bigger
 gg
 
-pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_taxonomy_binned_time_series.pdf")
+pdf(file="~/Desktop/ch2_impacts_systematic_review/figures/figure_taxonomy_binned_time_series.pdf")
 
 gg
 dev.off()

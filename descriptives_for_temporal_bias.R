@@ -1,5 +1,5 @@
 ## READ IN DATA ####
-source("~/Desktop/Impacts Systematic Review/scripts/impacts_systematic_review/clean_raw_data.R")
+source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
 ## LOAD PACKAGES ####
 library(dplyr)
@@ -28,3 +28,4 @@ count(temporal_raw$samplingfrequency)
 head(raw_data)
 study_design_raw <- dplyr::select(raw_data, studydesignnew)
 dplyr::count(study_design_raw,studydesignnew)
+
