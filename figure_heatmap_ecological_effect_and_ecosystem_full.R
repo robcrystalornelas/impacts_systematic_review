@@ -11,6 +11,7 @@ library(scales)      # labeling
 library(ggthemes)   
 library(viridis)     # Color palette
 library(knitr)   
+library(cowplot)
 
 ## Make count of all ecosyste and impact combinations
 all_impacts_and_ecosystems <- dplyr::count(impacts_t, impacttype, ecosystem)
@@ -25,12 +26,13 @@ all_impacts_and_ecosystems_complete <-
 # Create heatmap
 gg <- ggplot(all_impacts_and_ecosystems_complete, aes(x=impacttype, y=ecosystem, fill = n))
 gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
-gg <- gg + scale_fill_viridis(option = "C", name="# of case studies", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes
+gg <- gg + scale_fill_viridis(option = "C", name="# of measurements", label=comma) # This provides a color-blind friendly palette.  I chose option C for the Vidiris palettes
 gg <- gg + coord_equal()
-gg <- gg + theme_tufte(base_family="Helvetica")
+gg <- gg + theme_cowplot()
 gg <- gg + theme(axis.ticks=element_blank())
-gg <- gg + theme(axis.text.x=element_text(size=18, angle = 90, hjust = 1))
-gg <- gg + theme(axis.text.y=element_text(size=18))
+gg <- gg + theme(axis.text.x=element_text(size=20, angle = 90, hjust = 1, vjust = .3))
+gg
+gg <- gg + theme(axis.text.y=element_text(size=20))
 gg <- gg + theme(axis.title = element_text(size=20))
 gg <- gg + ylab("Ecosystem")
 gg <- gg + xlab("Ecological Effect")

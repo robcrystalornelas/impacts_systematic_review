@@ -6,6 +6,7 @@ library(dplyr)
 library(ggplot2)
 library(scales)
 library(ggthemes)
+library(cowplot)
 
 ## ORGANIZE DATA ####
 head(raw_data)
@@ -28,17 +29,17 @@ count(count(temporal_raw$studylengthbinned))
 gg <- ggplot(data=temporal_raw, aes(x=studylengthbinned))
 gg <- gg + geom_bar(stat="count", fill = "#fec44f")
 gg
-gg <- gg + theme_tufte()
+gg <- gg + theme_cowplot()
 gg
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Study Length")
-gg <- gg + theme(axis.text.x = element_text(size=15),
-                 axis.text.y = element_text(size=15),
-                 axis.title = element_text(size=20))
+gg <- gg + theme(axis.text.x = element_text(size=23),
+                 axis.text.y = element_text(size=23),
+                 axis.title = element_text(size=23))
 gg
-gg <- gg + scale_y_continuous(breaks = pretty_breaks(n=7))
+gg <- gg + scale_y_continuous(expand = c(0, 0), limits = c(0, 1500),
+                              breaks= pretty_breaks(n = 7))
 gg
-
 pdf(file="~/Desktop/Impacts Systematic Review/figures/figure_studylength_barplot.pdf")
 gg
 dev.off()

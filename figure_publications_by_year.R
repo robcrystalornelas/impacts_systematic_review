@@ -5,6 +5,7 @@ source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_revie
 library(ggplot2)
 library(dplyr)
 library(ggthemes)
+library(cowplot)
 
 ## ORGANIZE DATA ####
 levels(raw_data$ecosystem)
@@ -22,7 +23,9 @@ binsize <- diff(range(distinct_code_and_publication_year$publicationyear))/17 #s
 
 gg <- ggplot(distinct_code_and_publication_year, aes(publicationyear)) + 
   geom_histogram(binwidth = binsize, fill = "deepskyblue3", colour = "white")
-gg <- gg + theme_tufte()
+gg <- gg + theme_cowplot() +
+scale_y_continuous(expand = c(0, 0), limits = c(0, 175)) +
+  scale_x_continuous(expand = c(0,0))
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Publication Year")
 # gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size
@@ -42,7 +45,8 @@ binsize_case_studies <- diff(range(code_and_case_studies$publicationyear))/17 #s
 
 gg <- ggplot(code_and_case_studies, aes(publicationyear)) + 
   geom_histogram(binwidth = binsize_case_studies, fill = "lightgreen", colour = "white")
-gg <- gg + theme_tufte()
+gg <- gg + theme_cowplot() +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 160))
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Publication Year")
 gg <- gg + theme(axis.text=element_text(size=12), # Change tick mark label size

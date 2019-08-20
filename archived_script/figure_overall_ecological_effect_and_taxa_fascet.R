@@ -1,5 +1,7 @@
 library(ggpubr)
 library(ggthemes)
+library(cowplot)
+
 ## READ IN DATA ####
 source("~/Desktop/ch2_impacts_systematic_review/scripts/impacts_systematic_review/clean_raw_data.R")
 
@@ -52,18 +54,29 @@ dev.off()
 # Now make figure for overall
 
 ## MAKE FIGURES ####
-gg_overall <- ggplot(impact_and_taxa, aes(x = reorder(impacttype,impacttype, function(x)-length(x))))
-gg_overall <-gg_overall + geom_bar(stat="count", fill = "#1f78b4")
-gg_overall
-gg_overall <- gg_overall + theme_tufte()
-gg_overall <- gg_overall + ylab("Frequency")
-# gg_overall <- gg_overall + xlab("Ecological Effect")
-gg_overall <- gg_overall + theme(axis.text.x = element_text(size=15, angle = 90, hjust = 1, vjust = .5),
-                 axis.text.y = element_text(size=15),
-                 axis.title = element_text(size=20),
-                 axis.title.x=element_blank())
-gg_overall
 
+gg_overall <-
+  ggplot(impact_and_taxa, aes(x = reorder(impacttype, impacttype, function(x)
+    -
+      length(x))))
+gg_overall <- gg_overall + geom_bar(stat = "count", fill = "deepskyblue3")
+gg_overall
+gg_overall <- gg_overall + theme_cowplot()
+gg_overall <- gg_overall + ylab("Frequency")
+gg_overall <- gg_overall + xlab("Ecological Effect")
+gg_overall <-
+  gg_overall + theme(
+    axis.text.x = element_text(
+      size = 23,
+      angle = 90,
+      hjust = 1,
+      vjust = .5
+    ),
+    axis.text.y = element_text(size = 23),
+    axis.title = element_text(size = 23),
+    axis.title.x = element_blank()
+  )
+gg_overall
 
 gg_overall_and_effect_fascet_by_taxa <- ggarrange(gg_overall, gg_interaction,
           labels = c("A", "B"),

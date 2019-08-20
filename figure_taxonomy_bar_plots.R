@@ -31,7 +31,7 @@ species_ordered
 # Figure for ALL invasive species
 gg <- ggplot(data = species_ordered, aes(x=invasivespecies, y = count))
 gg <- gg + geom_bar(stat="identity", fill = "#239B56")
-gg <- gg + theme_tufte()
+gg <- gg + theme_cowplot()
 gg <- gg + ylab("Frequency")
 gg <- gg + xlab("Invasive Species")
 gg <- gg + theme(axis.text=element_text(size=15), # Change tick mark label size
@@ -40,7 +40,7 @@ gg <- gg + theme(axis.text=element_text(size=15), # Change tick mark label size
                  axis.ticks = element_blank(),
                  strip.text = element_text(size=12)) # Change axis title size
 gg
-
+?cowplot
 pdf(file="~/Desktop/ch2_impacts_systematic_review/figures/figure_taxonomy_all_species_barplot.pdf")
 plot(gg)
 dev.off()
