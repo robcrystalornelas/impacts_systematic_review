@@ -23,6 +23,17 @@ all_impacts_and_ecosystems_complete <-
   droplevels() %>%
   tidyr::complete(impacttype, ecosystem, fill=list(n=NA)) # complete heatmap so that all combinations have either numerical value or NA
 
+# Changer order of factor levels
+plyr::count(impacts_raw_data$impacttype)
+all_impacts_and_ecosystems_complete$ecosystem <- factor(all_impacts_and_ecosystems_complete$ecosystem, levels=c("mountain", "desert", "urban","shrubland","coastal","oceanic","estuarine","grassland","lentic","lotic","island","forest"))
+all_impacts_and_ecosystems_complete$impacttype <- factor(all_impacts_and_ecosystems_complete$impacttype, levels=c("diversity", "fitness", "abundance","nutrient availability","behavior","indirect","growth","other","production","habitat change","hybridization"))
+
+all_impacts_and_ecosystems_complete <-
+  all_impacts_and_ecosystems_complete %>%
+  filter(ecosystem != "NA") %>%
+  droplevels() %>%
+  tidyr::complete(impacttype, ecosystem, fill=list(n=NA)) # complete heatmap so that all combinations have either numerical value or NA
+
 # Create heatmap
 gg <- ggplot(all_impacts_and_ecosystems_complete, aes(x=impacttype, y=ecosystem, fill = n))
 gg <- gg + geom_tile(color="white", size=0.1) # This tells we want every block to have a thin black border
