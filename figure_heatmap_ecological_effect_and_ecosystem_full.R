@@ -15,7 +15,7 @@ library(cowplot)
 
 ## Make count of all ecosyste and impact combinations
 all_impacts_and_ecosystems <- dplyr::count(impacts_t, impacttype, ecosystem)
-
+all_impacts_and_ecosystems
 # Remove impacts with impact listed as "NA"
 all_impacts_and_ecosystems_complete <-
   all_impacts_and_ecosystems %>%
@@ -25,7 +25,8 @@ all_impacts_and_ecosystems_complete <-
 
 # Changer order of factor levels
 plyr::count(impacts_raw_data$impacttype)
-all_impacts_and_ecosystems_complete$ecosystem <- factor(all_impacts_and_ecosystems_complete$ecosystem, levels=c("mountain", "desert", "urban","shrubland","coastal","oceanic","estuarine","grassland","lentic","lotic","island","forest"))
+plyr::count(impacts_raw_data$ecosystem)
+all_impacts_and_ecosystems_complete$ecosystem <- factor(all_impacts_and_ecosystems_complete$ecosystem, levels=c("mountain", "desert", "urban","shrubland","coastal","oceanic","intertidal","estuarine","grassland","lentic","lotic","island","forest"))
 all_impacts_and_ecosystems_complete$impacttype <- factor(all_impacts_and_ecosystems_complete$impacttype, levels=c("diversity", "fitness", "abundance","nutrient availability","behavior","indirect","growth","other","production","habitat change","hybridization"))
 
 all_impacts_and_ecosystems_complete <-
